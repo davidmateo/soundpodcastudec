@@ -1,0 +1,26 @@
+<p>register works!</p>
+<div class="register-container">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <h2>Registrarse</h2>
+  
+      <label>Email</label>
+      <input type="email" formControlName="email" />
+      <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+        <small>Correo inválido</small>
+      </div>
+  
+      <label>Contraseña</label>
+      <input type="password" formControlName="password" />
+      <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+        <small>Mínimo 6 caracteres</small>
+      </div>
+  
+      <button type="submit" [disabled]="registerForm.invalid">Registrarse</button>
+  
+      <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+      <p class="login-link">
+        ¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión</a>
+      </p>
+    </form>
+  </div>
+  

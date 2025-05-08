@@ -1,0 +1,26 @@
+<mat-toolbar  class="navbar">
+  <div class="navbar-left">
+    <img src="../../../assets/sp.png" class="logo" alt="">
+    <span class="title">SoundPodcastUdeC</span>
+  </div>
+
+  <div class="navbar-center hide-on-mobile">
+    <button mat-button><mat-icon>home</mat-icon><span>Inicio</span></button>
+    <button mat-button><mat-icon>explore</mat-icon><span>Explorar</span></button>
+    <button mat-button><mat-icon>favorite</mat-icon><span>Favoritos</span></button>
+    <button mat-button><mat-icon>person</mat-icon><span>Perfil</span></button>
+  </div>
+
+  <div class="navbar-right">
+    <button mat-icon-button class="hide-on-desktop">
+      <mat-icon [matMenuTriggerFor]="menu">menu</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item><mat-icon >home</mat-icon ><span class="i">Inicio</span></button>
+      <button mat-menu-item><mat-icon >explore</mat-icon><span class="i">Explorar</span></button>
+      <button mat-menu-item><mat-icon >favorite</mat-icon><span class="i">favoritos</span></button>
+      <button mat-menu-item><mat-icon >person</mat-icon><span class="i">Perfil</span></button>
+    </mat-menu>
+  </div>
+</mat-toolbar>

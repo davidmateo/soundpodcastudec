@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "soundpodcastudec"
+  },
+  "targets": {
+    "soundpodcastudec": {
+      "hosting": {
+        "soundpodcastudec": [
+          "soundpodcastudec"
+        ]
+      }
+    }
+  }
+}
+

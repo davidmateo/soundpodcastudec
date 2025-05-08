@@ -1,0 +1,67 @@
+.navbar{
+    background-color: #5e17eb;
+    color: white;
+}
+mat-icon, button, span{
+    color: white;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+  }
+  
+  .navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .logo-icon {
+    font-size: 32px;
+  }
+  
+  .title {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .navbar-center {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  .navbar-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .hide-on-mobile {
+    display: flex;
+  }
+  .i {
+    color:#5e17eb;
+  }
+  .logo{
+    display: flex;
+    width: 50px;
+  }
+  .hide-on-desktop {
+    display: none;
+  }
+  .i{
+    color: #5e17eb;
+  }
+  
+  /* Responsive breakpoints */
+  @media (max-width: 768px) {
+    .hide-on-mobile {
+      display: none;
+    }
+  
+    .hide-on-desktop {
+      display: inline-flex;
+    }
+  }
+  
