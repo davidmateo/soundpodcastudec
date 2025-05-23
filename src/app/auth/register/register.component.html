@@ -1,26 +1,47 @@
-<p>register works!</p>
-<div class="register-container">
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <h2>Registrarse</h2>
-  
-      <label>Email</label>
-      <input type="email" formControlName="email" />
-      <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
-        <small>Correo inválido</small>
-      </div>
-  
-      <label>Contraseña</label>
-      <input type="password" formControlName="password" />
-      <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
-        <small>Mínimo 6 caracteres</small>
-      </div>
-  
-      <button type="submit" [disabled]="registerForm.invalid">Registrarse</button>
-  
-      <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
-      <p class="login-link">
-        ¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión</a>
-      </p>
-    </form>
+<header>
+  <div class="welcome-message">
+    <h1>¡Únete a SoundPodcastUdec!</h1>
+    <p>Forma parte de nuestra comunidad de oyentes. Regístrate en un par de segundos y accede a contenido exclusivo de nuestros podcasts universitarios.</p>
+    <p>La creación de tu cuenta es rápida, segura y gratuita. ¡Empieza a disfrutar hoy mismo!</p>
   </div>
+</header>
+
+<div class="register-container">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <h2>Registrarse</h2>
+
+    <!-- Email -->
+    <label>Email</label>
+    <input type="email" formControlName="email" placeholder="Introduce tu correo" />
+    <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+      <small>Correo inválido</small>
+    </div>
+
+    <!-- Contraseña -->
+    <label>Contraseña</label>
+    <input type="password" formControlName="password" placeholder="Introduce tu contraseña" />
+    <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+      <small>Mínimo 6 caracteres</small>
+    </div>
+
+    <!-- Confirmar Contraseña -->
+    <label>Confirmar Contraseña</label>
+    <input type="password" formControlName="confirmPassword" placeholder="Repite tu contraseña" />
+    <div *ngIf="registerForm.hasError('passwordMismatch') && registerForm.get('confirmPassword')?.touched">
+      <small>Las contraseñas no coinciden</small>
+    </div>
+
+    <!-- Botón -->
+    <button type="submit" [disabled]="registerForm.invalid">Registrarse</button>
+
+    <!-- Mensaje de error -->
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+    <!-- Enlace a login -->
+    <p class="login-link">
+      ¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión</a>
+    </p>
+  </form>
+</div>
+
   

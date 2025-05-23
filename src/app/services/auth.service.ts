@@ -24,11 +24,10 @@ export class AuthService {
     });
   }
 
-  login(email: string, password: string) {
-    return from(
-      this.ngZone.run(() => signInWithEmailAndPassword(this.auth, email, password))
-    );
+  login(email: string, password: string): Promise<any> {
+    return signInWithEmailAndPassword(this.auth, email, password);
   }
+  
 
   register(email: string, password: string) {
     return from(

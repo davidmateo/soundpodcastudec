@@ -1,9 +1,39 @@
-<div class="index-container">
-    <div class="welcome-message">
-      <h1>Bienvenido a la Aplicación</h1>
-      <p>Estás conectado correctamente. ¡Explora las funciones de la app!</p>
-    </div>
-    
-    <button class="logout-button" (click)="logout()">Cerrar sesión</button>
-  </div>
-  
+<app-header></app-header>
+<div class="podcast-list">
+  <mat-card *ngFor="let podcast of podcasts$ | async" class="podcast-card">
+<img 
+  *ngIf="podcast.safeImageUrl" 
+  [src]="podcast.safeImageUrl" 
+  alt="{{ podcast.title }}" 
+  class="podcast-image"
+>
+
+    <mat-card-header>
+      <mat-card-title>{{ podcast.title }}</mat-card-title>
+      <mat-card-subtitle>Subido por: {{ podcast.uploadedBy }}</mat-card-subtitle>
+        <button mat-icon-button (click)="likePodcast(podcast)" aria-label="Me gusta">
+          <mat-icon color="primary">thumb_up</mat-icon>
+        </button>
+        <span>{{ podcast.likes }}likes</span>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p>{{ podcast.description }}</p>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <div>
+        <iframe
+  *ngIf="podcast.safeAudioUrl"
+  [src]="podcast.safeAudioUrl"
+  width="100%"
+  height="152"
+  style="border-radius:12px"
+  frameBorder="0"
+  allowfullscreen
+  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+  loading="lazy">
+</iframe>
+
+</div>
+

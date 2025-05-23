@@ -1,0 +1,164 @@
+/* Estilos generales del header */
+.main-header {
+    background-color: white; /* Color de fondo blanco */
+    color: #5e17eb;
+    text-align: center;
+    padding: 50px 20px;
+    position: relative;
+    min-height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+    /* Línea inferior morada más oscura */
+  }
+  
+  .header-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .logo-container {
+    margin-bottom: 20px; /* Espacio entre el logo y el título */
+  }
+  
+  .logo {
+    width: 80px; /* Tamaño del logo */
+    height: auto;
+    object-fit: contain; /* Asegura que el logo no se deforme */
+  }
+  
+  .header-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    font-family: 'Helvetica Neue', sans-serif;
+    margin: 0;
+    color: #6e2eee; /* Color del título */
+  }
+  
+  .header-subtitle {
+    font-size: 1.2rem;
+    margin-top: 15px;
+    color: #9440d8; /* Gris claro para el subtítulo */
+    font-style: italic;
+  }
+  
+  .cta-button {
+    margin-top: 30px;
+    font-size: 1.1rem;
+    padding: 12px 24px;
+    background-color: rgb(235, 235, 235);; /* Morado más claro para el botón */
+    color: #5e17eb;
+    border-radius: 20px;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .cta-button:hover {
+    background-color: #5e17eb;
+    color: whitesmoke; /* Tono más oscuro de morado en el hover */
+    transform: scale(1.05); /* Efecto de animación al pasar el cursor */
+  }
+  
+  /* Media Query para pantallas de móviles */
+  @media (max-width: 768px) {
+    .main-header {
+      padding: 40px 15px;
+      min-height: 300px; /* Reducimos la altura para pantallas más pequeñas */
+    }
+  
+    .header-title {
+      font-size: 2.5rem; /* Reducimos el tamaño del título */
+      text-align: center;
+    }
+  
+    .header-subtitle {
+      font-size: 1rem; /* Reducimos el tamaño del subtítulo */
+      text-align: center;
+    }
+  
+    .cta-button {
+      font-size: 1rem; /* Reducimos el tamaño del botón */
+      padding: 10px 20px;
+    }
+  
+    .logo {
+      width: 60px; /* Reducimos el tamaño del logo en pantallas pequeñas */
+    }
+  
+    /* Ajuste de márgenes y espaciado */
+    .header-content {
+      padding: 0 10px;
+    }
+  
+    .logo-container {
+      margin-bottom: 15px; /* Menos espacio entre el logo y el título */
+    }
+  
+    .cta-button {
+
+      width: 100%; /* Hacemos el botón más grande y adaptado al ancho */
+      margin-top: 20px;
+    }
+  }
+  
+  /* Media Query para pantallas muy pequeñas (menor a 480px) */
+  @media (max-width: 480px) {
+    .main-header {
+      padding: 30px 10px; /* Reducimos el padding para pantallas muy pequeñas */
+      min-height: 250px; /* Altura más pequeña */
+    }
+  
+    .header-title {
+      font-size: 2rem; /* Reducimos aún más el tamaño del título */
+    }
+  
+    .header-subtitle {
+      font-size: 0.9rem; /* Reducimos el subtítulo */
+    }
+  
+    .cta-button {
+      font-size: 0.9rem; /* Reducimos el tamaño del botón */
+      padding: 8px 18px;
+    }
+  
+    .logo {
+      width: 50px; /* Reducimos el tamaño del logo */
+    }
+  }
+  @media (max-width: 344px) {
+    .main-header {
+      padding: 20px 8px;
+      min-height: 220px;
+    }
+  
+    .header-title {
+      font-size: 1.6rem;
+      letter-spacing: 1px;
+      line-height: 1.2;
+    }
+  
+    .header-subtitle {
+      font-size: 0.8rem;
+      line-height: 1.2;
+    }
+  
+    .cta-button {
+      font-size: 0.85rem;
+      padding: 6px 14px;
+      width: 100%;
+    }
+  
+    .logo {
+      width: 45px;
+    }
+  
+    .header-content {
+      padding: 0 6px;
+    }
+  }

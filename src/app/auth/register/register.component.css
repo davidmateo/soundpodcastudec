@@ -2,9 +2,10 @@
 .register-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
-  padding: 10px;
+  align-items: flex-start; /* Alinea el formulario hacia arriba */
+  padding: 20px 10px;
+  min-height: calc(100vh - 120px); /* Altura flexible sin empujar el header */
+  box-sizing: border-box;
 }
 
 /* Estilos del formulario */
@@ -85,21 +86,6 @@ small {
   font-size: 1rem;
 }
 
-/* Responsividad para dispositivos pequeños */
-@media (max-width: 600px) {
-  form {
-    padding: 20px;
-  }
-
-  h2 {
-    font-size: 1.8rem;
-  }
-
-  button {
-    font-size: 1rem;
-  }
-}
-
 /* Link a login */
 .login-link {
   text-align: center;
@@ -114,4 +100,82 @@ small {
 
 .login-link a:hover {
   text-decoration: underline;
+}
+
+/* Header para la página de registro */
+header {
+  background-color: #5e17eb;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.welcome-message {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.welcome-message h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.welcome-message p {
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+
+.welcome-message a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.welcome-message a:hover {
+  color: #ffcc00;
+}
+
+/* Responsividad para dispositivos pequeños */
+@media (max-width: 768px) {
+  .welcome-message h1 {
+    font-size: 2em;
+  }
+
+  .welcome-message p {
+    font-size: 1em;
+    margin: 8px 0;
+  }
+
+  header {
+    padding: 15px;
+  }
+
+  form {
+    padding: 30px;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-message h1 {
+    font-size: 1.6em;
+  }
+
+  .welcome-message p {
+    font-size: 0.9em;
+  }
+
+  header {
+    padding: 10px;
+  }
+
+  form {
+    padding: 20px;
+  }
+
+  button {
+    font-size: 1rem;
+  }
 }

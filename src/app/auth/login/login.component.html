@@ -1,8 +1,15 @@
+<header>
+  <div class="welcome-message">
+    <h1>¡Bienvenido a SoundPodcastUdec!</h1>
+    <p>Nos alegra tenerte con nosotros. Para que puedas disfrutar de todos nuestros podcasts exclusivos, por favor, inicia sesión. Solo así podrás acceder al contenido que tenemos para ti.</p>
+    <p>Si aún no tienes cuenta, regístrate en un par de minutos y empieza a escuchar ahora mismo.</p>
+  </div>
+</header>
 
 <div class="login-container">
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <h2>Iniciar sesión</h2>
-    
+
     <!-- Campo Email -->
     <div class="form-group">
       <label for="email">Email</label>
@@ -27,8 +34,7 @@
     <!-- Mensaje de error -->
     <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
     <div class="register-link">
-        <p>¿No tienes cuenta? <a routerLink="/register">Regístrate</a></p>
-      </div>
+      <p>¿No tienes cuenta? <a routerLink="/register">Regístrate</a></p>
+    </div>
   </form>
-
 </div>

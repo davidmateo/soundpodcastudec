@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router'; // Necesario para redireccionar
 
+
 @Component({
   selector: 'app-login',
   standalone: true,

@@ -3,6 +3,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { IndexComponent } from './index/index.component';
 import { AuthGuard } from './auth/auth.guard'; // Importa tu guardia de autenticación
+import { FormPodcastComponent } from './components/form-podcast/form-podcast.component';
 
 export const routes: Routes = [
   // Ruta para el login, accesible para todos
@@ -10,6 +11,8 @@ export const routes: Routes = [
 
   // Ruta para el registro, accesible para todos
   { path: 'register', component: RegisterComponent },
+  //ruta formulario  de solicitud
+  {path:'form-p', component: FormPodcastComponent},
 
   // Ruta protegida por el AuthGuard, solo accesible si el usuario está autenticado
   { path: 'index', component: IndexComponent, canActivate: [AuthGuard] },

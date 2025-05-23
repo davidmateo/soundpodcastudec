@@ -1,4 +1,4 @@
-<mat-toolbar  class="navbar">
+<mat-toolbar class="navbar">
   <div class="navbar-left">
     <img src="../../../assets/sp.png" class="logo" alt="">
     <span class="title">SoundPodcastUdeC</span>
@@ -8,7 +8,16 @@
     <button mat-button><mat-icon>home</mat-icon><span>Inicio</span></button>
     <button mat-button><mat-icon>explore</mat-icon><span>Explorar</span></button>
     <button mat-button><mat-icon>favorite</mat-icon><span>Favoritos</span></button>
-    <button mat-button><mat-icon>person</mat-icon><span>Perfil</span></button>
+
+    <!-- Mostrar Login/Register o Logout según si el usuario está autenticado -->
+    <ng-container *ngIf="!(user$ | async); else loggedIn">
+      <button mat-button routerLink="/login"> <mat-icon>login</mat-icon><span >Login</span></button>
+      <button mat-button routerLink="/register"> <mat-icon>how_to_reg</mat-icon><span >Register</span></button>
+    </ng-container>
+
+    <ng-template #loggedIn>
+      <button mat-button (click)="logout()"><mat-icon>logout</mat-icon><span >Logout</span></button>
+    </ng-template>
   </div>
 
   <div class="navbar-right">
@@ -17,10 +26,19 @@
     </button>
 
     <mat-menu #menu="matMenu">
-      <button mat-menu-item><mat-icon >home</mat-icon ><span class="i">Inicio</span></button>
-      <button mat-menu-item><mat-icon >explore</mat-icon><span class="i">Explorar</span></button>
-      <button mat-menu-item><mat-icon >favorite</mat-icon><span class="i">favoritos</span></button>
-      <button mat-menu-item><mat-icon >person</mat-icon><span class="i">Perfil</span></button>
+      <button mat-menu-item><mat-icon>home</mat-icon><span class="i">Inicio</span></button>
+      <button mat-menu-item><mat-icon>explore</mat-icon><span class="i">Explorar</span></button>
+      <button mat-menu-item><mat-icon>favorite</mat-icon><span class="i">Favoritos</span></button>
+
+      <!-- Mostrar Login/Register o Logout según si el usuario está autenticado -->
+      <ng-container *ngIf="!(user$ | async); else loggedInMenu">
+        <button mat-menu-item routerLink="/login"><mat-icon>login</mat-icon><span class="i">Login</span></button>
+        <button mat-menu-item routerLink="/register"><mat-icon>how_to_reg</mat-icon><span class="i">Register</span></button>
+      </ng-container>
+
+      <ng-template #loggedInMenu>
+        <button mat-menu-item (click)="logout()"><mat-icon>logout</mat-icon><span class="i">Logout</span></button>
+      </ng-template>
     </mat-menu>
   </div>
 </mat-toolbar>
