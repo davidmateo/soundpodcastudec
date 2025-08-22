@@ -7,13 +7,13 @@ header {
 }
 
 .welcome-message h1 {
-  font-size: 2.5em;
+  font-size: 2.3em;
   margin-bottom: 10px;
 }
 
 .welcome-message p {
-  font-size: 1.2em;
-  margin: 10px 0;
+  font-size: 1.1em;
+  margin: 8px 0;
 }
 
 .welcome-message a {
@@ -25,16 +25,16 @@ header {
   color: #ffcc00;
 }
 
-/* Contenedor del formulario de login */
+/* Contenedor login */
 .login-container {
   display: flex;
   justify-content: center;
   align-items: flex-start;
   padding: 20px 10px;
-  min-height: calc(100vh - 120px); /* espacio flexible sin tanto blanco */
+  min-height: calc(100vh - 120px);
 }
 
-/* Estilos del formulario */
+/* Formulario */
 form {
   background-color: white;
   padding: 20px;
@@ -42,14 +42,13 @@ form {
   width: 100%;
   max-width: 400px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  margin-top: 0; /* sin espacio innecesario */
 }
 
 h2 {
   text-align: center;
   margin-bottom: 20px;
   color: #4e5ba1;
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 .form-group {
@@ -57,7 +56,7 @@ h2 {
 }
 
 .form-group label {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   color: #333;
   display: block;
   margin-bottom: 5px;
@@ -81,7 +80,7 @@ h2 {
 button {
   width: 100%;
   padding: 12px;
-  background-color: #4e5ba1;
+  background-color: #5e17eb; /* color principal */
   color: white;
   border: none;
   border-radius: 5px;
@@ -118,97 +117,12 @@ button:hover:enabled {
 }
 
 .register-link a {
-  color: #4e5ba1;
+  color: #5e17eb;
   font-weight: bold;
   text-decoration: none;
 }
 
 .register-link a:hover {
   text-decoration: underline;
-<<<<<<< HEAD
-=======
-  cursor: pointer;
->>>>>>> f7062e3 (Normaliza saltos de línea)
+  color: #ffcc00;
 }
-
-/* Responsividad */
-@media (max-width: 768px) {
-  .welcome-message h1 {
-    font-size: 2em;
-  }
-
-  .welcome-message p {
-    font-size: 1em;
-    margin: 8px 0;
-  }
-
-  header {
-    padding: 15px;
-  }
-
-  h2 {
-    font-size: 1.8rem;
-  }
-
-  .login-container {
-    padding-top: 15px;
-    min-height: auto;
-  }
-}
-
-@media (max-width: 480px) {
-  .welcome-message h1 {
-    font-size: 1.6em;
-  }
-
-  .welcome-message p {
-    font-size: 0.9em;
-  }
-
-  header {
-    padding: 10px;
-  }
-
-  h2 {
-    font-size: 1.6rem;
-  }
-
-  .form-group input {
-    padding: 10px;
-  }
-
-  button {
-    font-size: 1rem;
-  }
-
-  .login-container {
-    padding-top: 10px;
-    min-height: auto;
-  }
-}
-<<<<<<< HEAD
-=======
-/* Enlace administrador */
-.admin-link {
-  text-align: center;
-  margin-top: 10px;
-}
-
-.admin-link p {
-  font-size: 0.95rem;
-  color: black;
-}
-
-.admin-link a {
-  color: #4e5ba1; /* mismo tono morado del header */
-  font-weight: bold;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.admin-link a:hover {
-  color: #ffcc00; /* mismo hover que los links del header */
-  text-decoration: underline;
-  cursor: pointer;
-}
->>>>>>> f7062e3 (Normaliza saltos de línea)

@@ -129,9 +129,18 @@ header {
   color: #fff;
   text-decoration: underline;
 }
+<<<<<<< HEAD
 
 .welcome-message a:hover {
   color: #ffcc00;
+=======
+button :hover{
+  cursor: pointer;
+}
+.welcome-message a:hover {
+  color: #ffcc00;
+  cursor: pointer;
+>>>>>>> f7062e3 (Normaliza saltos de línea)
 }
 
 /* Responsividad para dispositivos pequeños */
@@ -179,3 +188,29 @@ header {
     font-size: 1rem;
   }
 }
+<<<<<<< HEAD
+=======
+/* Enlace administrador */
+.admin-link {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.admin-link p {
+  font-size: 0.95rem;
+  color: black;
+}
+
+.admin-link a {
+  color: #4e5ba1; /* mismo tono morado del header */
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.admin-link a:hover {
+  color: #ffcc00; /* mismo hover que los links del header */
+  text-decoration: underline;
+  cursor: pointer;
+}
+>>>>>>> f7062e3 (Normaliza saltos de línea)
