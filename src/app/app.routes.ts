@@ -4,11 +4,9 @@ import { RegisterComponent } from './auth/register/register.component';
 import { IndexComponent } from './index/index.component';
 import { AuthGuard } from './auth/auth.guard'; // Importa tu guardia de autenticación
 import { FormPodcastComponent } from './components/form-podcast/form-podcast.component';
-<<<<<<< HEAD
-=======
 import { AdminLoginComponent } from './auth/admin-login/admin-login.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
->>>>>>> f7062e3 (Normaliza saltos de línea)
+
 
 export const routes: Routes = [
   // Ruta para el login, accesible para todos
@@ -16,11 +14,8 @@ export const routes: Routes = [
 
   // Ruta para el registro, accesible para todos
   { path: 'register', component: RegisterComponent },
-<<<<<<< HEAD
-=======
   {path: 'admin-dashboard', component: AdminDashboardComponent},
   {path:  'admin-login', component: AdminLoginComponent},
->>>>>>> f7062e3 (Normaliza saltos de línea)
   //ruta formulario  de solicitud
   {path:'form-p', component: FormPodcastComponent},
 

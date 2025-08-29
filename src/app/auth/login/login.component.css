@@ -125,10 +125,8 @@ button:hover:enabled {
 
 .register-link a:hover {
   text-decoration: underline;
-<<<<<<< HEAD
-=======
   cursor: pointer;
->>>>>>> f7062e3 (Normaliza saltos de línea)
+
 }
 
 /* Responsividad */
@@ -186,8 +184,7 @@ button:hover:enabled {
     min-height: auto;
   }
 }
-<<<<<<< HEAD
-=======
+
 /* Enlace administrador */
 .admin-link {
   text-align: center;
@@ -211,4 +208,4 @@ button:hover:enabled {
   text-decoration: underline;
   cursor: pointer;
 }
->>>>>>> f7062e3 (Normaliza saltos de línea)
+

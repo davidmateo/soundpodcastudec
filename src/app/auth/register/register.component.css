@@ -129,18 +129,18 @@ header {
   color: #fff;
   text-decoration: underline;
 }
-<<<<<<< HEAD
+
 
 .welcome-message a:hover {
   color: #ffcc00;
-=======
+}
 button :hover{
   cursor: pointer;
 }
 .welcome-message a:hover {
   color: #ffcc00;
   cursor: pointer;
->>>>>>> f7062e3 (Normaliza saltos de línea)
+
 }
 
 /* Responsividad para dispositivos pequeños */
@@ -188,8 +188,7 @@ button :hover{
     font-size: 1rem;
   }
 }
-<<<<<<< HEAD
-=======
+
 /* Enlace administrador */
 .admin-link {
   text-align: center;
@@ -213,4 +212,3 @@ button :hover{
   text-decoration: underline;
   cursor: pointer;
 }
->>>>>>> f7062e3 (Normaliza saltos de línea)
