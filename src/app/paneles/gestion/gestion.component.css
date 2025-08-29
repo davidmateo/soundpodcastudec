@@ -1,0 +1,101 @@
+/* Header del módulo */
+.admin-header {
+  background-color: #5e17eb;
+  color: white;
+  text-align: center;
+  padding: 30px 20px;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.admin-header h1 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+}
+
+.admin-header p {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+/* Contenedor de tarjetas */
+.admin-dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 30px;
+}
+
+/* Estilos de cada tarjeta */
+.admin-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-card h3 {
+  color: #4e5ba1;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.admin-card p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* Botones dentro de las tarjetas */
+.btn-card {
+  background-color: #4e5ba1;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  text-decoration: none;
+  margin: 0 5px;
+  transition: background-color 0.3s;
+}
+
+.btn-card:hover {
+  background-color: #3e4d7e;
+}
+
+.btn-card.danger {
+  background-color: #e53935;
+}
+
+.btn-card.danger:hover {
+  background-color: #c62828;
+}
+
+/* Hover efecto de la tarjeta */
+.admin-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* Botón para añadir nuevo podcast */
+.add-podcast {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.btn-add {
+  background-color: #5e17eb;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+.btn-add:hover {
+  background-color: #4913b8;
+}

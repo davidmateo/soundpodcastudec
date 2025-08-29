@@ -1,1 +1,40 @@
-<p>gestion works!</p>
+<!-- Header del módulo de podcasts -->
+<div class="admin-header">
+  <h1>Gestión de Podcasts</h1>
+  <p>Administra, edita y organiza tus podcasts fácilmente</p>
+</div>
+
+<!-- Contenedor de tarjetas -->
+<div class="admin-dashboard">
+  <div class="admin-card">
+    <h3>Podcast Inspirador</h3>
+    <p>Un espacio de reflexión y motivación.</p>
+    <div>
+      <a routerLink="/podcast/edit/1" class="btn-card">Editar</a>
+      <a routerLink="/podcast/delete/1" class="btn-card danger">Eliminar</a>
+    </div>
+  </div>
+
+  <div class="admin-card">
+    <h3>Historias de Fe</h3>
+    <p>Testimonios y experiencias que transforman vidas.</p>
+    <div>
+      <a routerLink="/podcast/edit/2" class="btn-card">Editar</a>
+      <a routerLink="/podcast/delete/2" class="btn-card danger">Eliminar</a>
+    </div>
+  </div>
+
+  <div class="admin-card">
+    <h3>Música y Palabra</h3>
+    <p>Episodios con música y mensajes cristianos.</p>
+    <div>
+      <a routerLink="/podcast/edit/3" class="btn-card">Editar</a>
+      <a routerLink="/podcast/delete/3" class="btn-card danger">Eliminar</a>
+    </div>
+  </div>
+</div>
+
+<!-- Botón para añadir nuevo podcast -->
+<div class="add-podcast">
+  <a routerLink="/podcast/add" class="btn-add">+ Nuevo Podcast</a>
+</div>

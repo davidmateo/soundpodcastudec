@@ -1,1 +1,31 @@
-<p>moderacion works!</p>
+<!-- Header de moderación -->
+<div class="admin-header">
+  <h1>Moderación de Cuentas</h1>
+  <p>Supervisa usuarios, revisa reportes y gestiona cuentas del sistema</p>
+</div>
+
+<!-- Contenedor de tarjetas -->
+<div class="admin-dashboard">
+
+  <!-- Supervisar usuarios -->
+  <div class="admin-card">
+    <h3>Supervisión de Usuarios</h3>
+    <p>Consulta la actividad de los usuarios y aplica medidas cuando sea necesario.</p>
+    <a routerLink="/moderation/users" class="btn-card">Ir a Usuarios</a>
+  </div>
+
+  <!-- Revisar reportes -->
+  <div class="admin-card">
+    <h3>Revisión de Reportes</h3>
+    <p>Accede a los reportes enviados y decide las acciones a seguir.</p>
+    <a routerLink="/moderation/reports" class="btn-card">Ver Reportes</a>
+  </div>
+
+  <!-- Gestión de cuentas -->
+  <div class="admin-card">
+    <h3>Gestión de Cuentas</h3>
+    <p>Bloquea, reactiva o ajusta permisos de usuarios según sea necesario.</p>
+    <a routerLink="/moderation/accounts" class="btn-card">Gestionar Cuentas</a>
+  </div>
+
+</div>

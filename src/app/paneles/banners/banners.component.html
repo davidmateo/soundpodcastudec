@@ -1,1 +1,36 @@
-<p>banners works!</p>
+<!-- Header de banners -->
+<div class="admin-header">
+  <h1>Novedades de Banner</h1>
+  <p>Actualiza los banners principales con novedades, eventos o anuncios destacados</p>
+</div>
+
+<!-- Contenedor de tarjetas -->
+<div class="admin-dashboard">
+
+  <!-- Banner 1 -->
+  <div class="admin-card">
+    <h3>Banner de Evento</h3>
+    <p>Promoción especial para el próximo congreso de turismo sostenible.</p>
+    <a routerLink="/banners/edit/1" class="btn-card">Editar Banner</a>
+  </div>
+
+  <!-- Banner 2 -->
+  <div class="admin-card">
+    <h3>Banner de Novedad</h3>
+    <p>Nuevo episodio del podcast disponible ahora mismo.</p>
+    <a routerLink="/banners/edit/2" class="btn-card">Editar Banner</a>
+  </div>
+
+  <!-- Banner 3 -->
+  <div class="admin-card">
+    <h3>Banner de Anuncio</h3>
+    <p>Actualización del sistema el próximo fin de semana.</p>
+    <a routerLink="/banners/edit/3" class="btn-card">Editar Banner</a>
+  </div>
+
+</div>
+
+<!-- Botón para añadir nuevo banner -->
+<div class="add-banner">
+  <a routerLink="/banners/add" class="btn-add">+ Nuevo Banner</a>
+</div>

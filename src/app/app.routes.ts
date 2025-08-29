@@ -6,6 +6,9 @@ import { AuthGuard } from './auth/auth.guard'; // Importa tu guardia de autentic
 import { FormPodcastComponent } from './components/form-podcast/form-podcast.component';
 import { AdminLoginComponent } from './auth/admin-login/admin-login.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { GestionComponent } from './paneles/gestion/gestion.component';
+import { ModeracionComponent } from './paneles/moderacion/moderacion.component';
+import { BannersComponent } from './paneles/banners/banners.component';
 
 
 export const routes: Routes = [
@@ -16,7 +19,9 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   {path: 'admin-dashboard', component: AdminDashboardComponent},
   {path:  'admin-login', component: AdminLoginComponent},
-  //ruta formulario  de solicitud
+  {path:  'gestion', component: GestionComponent},
+  {path:  'moderacion', component: ModeracionComponent},
+  {path:  'banners', component: BannersComponent},  //ruta formulario  de solicitud
   {path:'form-p', component: FormPodcastComponent},
 
   // Ruta protegida por el AuthGuard, solo accesible si el usuario está autenticado
