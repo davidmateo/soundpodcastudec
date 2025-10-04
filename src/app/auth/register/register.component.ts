@@ -21,6 +21,8 @@ export class RegisterComponent {
   ) {
     this.registerForm = this.fb.group(
       {
+        nombre: ['', [Validators.required]],
+        apellido: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', Validators.required]
@@ -39,18 +41,22 @@ export class RegisterComponent {
     return null;
   }
 
-  async onSubmit() {
-    if (this.registerForm.invalid) {
-      this.registerForm.markAllAsTouched(); // Marca campos como tocados para mostrar errores
-      return;
-    }
-
-    const { email, password } = this.registerForm.value;
-    try {
-      await this.authService.register(email, password);
-      this.router.navigate(['/welcome']);
-    } catch (error: any) {
-      this.errorMessage = error.message;
-    }
+  onSubmit() {
+  if (this.registerForm.invalid) {
+    this.registerForm.markAllAsTouched();
+    return;
   }
+  
+  const { nombre, apellido, email, password } = this.registerForm.value;
+
+  this.authService.register(email, password, nombre, apellido).subscribe({
+    next: () => {
+      this.router.navigate(['/login']); // Redirige después de registrar
+    },
+    error: (err) => {
+      this.errorMessage = err.error?.error || 'Error en el registro';
+    }
+  });
+}
+
 }

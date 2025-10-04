@@ -1,8 +1,16 @@
 import { Injectable, NgZone } from '@angular/core';
-import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, User, onAuthStateChanged } from '@angular/fire/auth';
-import { BehaviorSubject, from } from 'rxjs';
-import { Router } from '@angular/router';  // Importación correcta de Router
-import { tap } from 'rxjs/operators';  // Importación correcta de tap
+import {  Observable, switchMap } from 'rxjs';
+import { 
+  Auth, 
+  signInWithEmailAndPassword, 
+  createUserWithEmailAndPassword, 
+  signOut, 
+  User, 
+  onAuthStateChanged 
+} from '@angular/fire/auth';
+import { BehaviorSubject, from, firstValueFrom } from 'rxjs';
+import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -11,32 +19,82 @@ export class AuthService {
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSubject.asObservable();
 
+  private apiUrl = 'http://localhost:3000/usuarios'; // 👈 tu backend local
+
   constructor(
     private auth: Auth,
     private ngZone: NgZone,
-    private router: Router  // Asegúrate de que Router esté inyectado
+    private router: Router,
+    private http: HttpClient
   ) {
-    // Actualiza el estado del usuario cuando cambia
+    // Mantener estado del usuario logueado en Firebase
     onAuthStateChanged(this.auth, (user) => {
       this.ngZone.run(() => {
         this.currentUserSubject.next(user);
       });
     });
   }
+ // 🔹 Registro en Firebase + backend
+register(email: string, password: string, nombre: string, apellido?: string): Observable<any> {
+  console.log("Intentando registrar:", { email, password, nombre, apellido });
 
-  login(email: string, password: string): Promise<any> {
-    return signInWithEmailAndPassword(this.auth, email, password);
-  }
-  
+  return from(createUserWithEmailAndPassword(this.auth, email, password)).pipe(
+    switchMap((userCredential) => {
+      const uid = userCredential.user.uid;
 
-  register(email: string, password: string) {
-    return from(
-      this.ngZone.run(() => createUserWithEmailAndPassword(this.auth, email, password))
+      console.log("Usuario creado en Firebase:", uid);
+
+      return this.http.post(`${this.apiUrl}/register`, {
+        uid,
+        email,
+        nombre,
+        apellido
+      });
+    })
+  );
+}
+
+  // 🔹 Login con Firebase y sincronización con backend
+  async login(email: string, password: string): Promise<any> {
+    const userCred = await signInWithEmailAndPassword(this.auth, email, password);
+    const token = await userCred.user.getIdToken(true);
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    // ✅ usamos firstValueFrom en lugar de toPromise()
+    return await firstValueFrom(
+      this.http.post(`${this.apiUrl}/login`, {}, { headers })
     );
   }
 
+  // 🔹 Obtener perfil desde backend
+  async getPerfil(): Promise<any> {
+    const user = this.auth.currentUser;
+    if (!user) throw new Error('No hay usuario logueado');
+
+    const token = await user.getIdToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return await firstValueFrom(
+      this.http.get(`${this.apiUrl}/me`, { headers })
+    );
+  }
+
+  // 🔹 Actualizar perfil en backend
+  async updatePerfil(data: { nombre?: string; apellidos?: string; refresh_token?: string }) {
+    const user = this.auth.currentUser;
+    if (!user) throw new Error('No hay usuario logueado');
+
+    const token = await user.getIdToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return await firstValueFrom(
+      this.http.put(`${this.apiUrl}/me`, data, { headers })
+    );
+  }
+
+  // 🔹 Logout (solo Firebase)
   logout() {
     return from(this.ngZone.run(() => signOut(this.auth)));
-  
   }
 }

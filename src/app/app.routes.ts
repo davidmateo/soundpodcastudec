@@ -9,6 +9,7 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
 import { GestionComponent } from './paneles/gestion/gestion.component';
 import { ModeracionComponent } from './paneles/moderacion/moderacion.component';
 import { BannersComponent } from './paneles/banners/banners.component';
+import { NuevoPodcastComponent } from './paneles/nuevo-podcast/nuevo-podcast.component';
 
 
 export const routes: Routes = [
@@ -21,6 +22,7 @@ export const routes: Routes = [
   {path:  'admin-login', component: AdminLoginComponent},
   {path:  'gestion', component: GestionComponent},
   {path:  'moderacion', component: ModeracionComponent},
+  {path: 'nuevo_podcast', component : NuevoPodcastComponent},
   {path:  'banners', component: BannersComponent},  //ruta formulario  de solicitud
   {path:'form-p', component: FormPodcastComponent},
 

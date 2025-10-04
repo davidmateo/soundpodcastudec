@@ -1,0 +1,68 @@
+/* Contenedor principal del formulario */
+.form-container {
+  max-width: 700px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+}
+
+/* Header del formulario */
+.form-header {
+  background-color: #5e17eb; /* morado sólido */
+  color: white;
+  text-align: center;
+  padding: 25px 20px;
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.form-header h2 {
+  font-size: 1.8rem;
+  margin: 0 0 8px;
+}
+
+.form-header p {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* Estilos del formulario */
+form {
+  padding: 25px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Botón */
+.btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.btn-add {
+  background-color: #5e17eb !important; /* morado sólido */
+  color: white !important;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 4px 14px rgba(94, 23, 235, 0.3);
+  transition: transform 0.2s, box-shadow 0.3s ease;
+}
+
+.btn-add:hover {
+  background-color: #4913b8 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(94, 23, 235, 0.5);
+}
+.btn-add:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 14px rgba(94, 23, 235, 0.3);
+}

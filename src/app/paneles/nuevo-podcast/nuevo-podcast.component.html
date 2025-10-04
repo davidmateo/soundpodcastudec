@@ -1,0 +1,51 @@
+<div class="form-container">
+  <!-- Header -->
+  <div class="form-header">
+    <h2>➕ Agregar Podcast</h2>
+    <p>Completa el formulario para registrar un nuevo episodio</p>
+  </div>
+
+  <!-- Formulario -->
+  <form>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Título</mat-label>
+      <input matInput placeholder="Ej: Mi primer podcast">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput rows="4" placeholder="Describe de qué trata el podcast"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Categoría</mat-label>
+      <mat-select>
+        <mat-option value="educacion">Educación</mat-option>
+        <mat-option value="musica">Música</mat-option>
+        <mat-option value="entretenimiento">Entretenimiento</mat-option>
+        <mat-option value="tecnologia">Tecnología</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Autor</mat-label>
+      <input matInput placeholder="Nombre del creador">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>URL del Audio</mat-label>
+      <input matInput placeholder="https://...">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Imagen (opcional)</mat-label>
+      <input matInput placeholder="URL de portada">
+    </mat-form-field>
+
+    <div class="btn-container">
+      <button mat-raised-button class="btn-add" type="button">
+        Guardar Podcast
+      </button>
+    </div>
+  </form>
+</div>

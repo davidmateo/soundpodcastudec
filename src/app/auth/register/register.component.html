@@ -10,6 +10,20 @@
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <h2>Registrarse</h2>
 
+    <!-- Nombre -->
+    <label>Nombre</label>
+    <input type="text" formControlName="nombre" placeholder="Introduce tu nombre" />
+    <div *ngIf="registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched">
+      <small>Nombre es obligatorio</small>
+    </div>
+
+    <!-- Apellido -->
+    <label>Apellido</label>
+    <input type="text" formControlName="apellido" placeholder="Introduce tu apellido" />
+    <div *ngIf="registerForm.get('apellido')?.invalid && registerForm.get('apellido')?.touched">
+      <small>Apellido es obligatorio</small>
+    </div>
+
     <!-- Email -->
     <label>Email</label>
     <input type="email" formControlName="email" placeholder="Introduce tu correo" />
@@ -37,12 +51,10 @@
     <!-- Mensaje de error -->
     <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
 
-    <!-- Enlace a login -->
+    <!-- Enlaces -->
     <p class="login-link">
       ¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión</a>
     </p>
     <p class="admin-link">¿Eres administrador? <a routerLink="/admin-login">Haz clic aquí</a></p>
   </form>
 </div>
-
-  
