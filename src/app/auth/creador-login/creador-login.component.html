@@ -1,8 +1,8 @@
 <header>
   <div class="welcome-message">
-    <h1>Panel de Administración</h1>
+    <h1>Panel de Creador</h1>
     <p>
-      Bienvenido administrador. Inicia sesión para gestionar los podcasts y usuarios de 
+      Bienvenido. Inicia sesión para ver, gestionar y solicitar subir los podcasts 
       <strong>SoundPodcastU</strong>.
     </p>
   </div>
@@ -10,17 +10,17 @@
 
 <div class="login-container">
   <form (ngSubmit)="onSubmit()">
-    <h2>Iniciar sesión (Admin)</h2>
+    <h2>Iniciar sesión como Creador</h2>
 
     <!-- Usuario -->
     <div class="form-group">
-      <label for="adminUser">Usuario administrador</label>
+      <label for="adminUser">Iniciar Sesión Creador</label>
       <input 
         type="text" 
         id="adminUser" 
         [(ngModel)]="username"  
         name="username"
-        placeholder="Introduce tu usuario (ej: cafeteros1234)" 
+        placeholder="Introduce tu usuario (ej: sasdaasd@gmail.com)" 
         required />
     </div>
 

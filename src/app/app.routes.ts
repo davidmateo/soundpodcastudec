@@ -10,6 +10,8 @@ import { GestionComponent } from './paneles/gestion/gestion.component';
 import { ModeracionComponent } from './paneles/moderacion/moderacion.component';
 import { BannersComponent } from './paneles/banners/banners.component';
 import { NuevoPodcastComponent } from './paneles/nuevo-podcast/nuevo-podcast.component';
+import { CreadorDashboardComponent } from './components/creador-dashboard/creador-dashboard.component';
+import { CreadorLoginComponent } from './auth/creador-login/creador-login.component';
 
 
 export const routes: Routes = [
@@ -20,9 +22,11 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   {path: 'admin-dashboard', component: AdminDashboardComponent},
   {path:  'admin-login', component: AdminLoginComponent},
+  {path: 'creador-login', component: CreadorLoginComponent},
   {path:  'gestion', component: GestionComponent},
   {path:  'moderacion', component: ModeracionComponent},
   {path: 'nuevo_podcast', component : NuevoPodcastComponent},
+  {path:'creador-dashboard', component: CreadorDashboardComponent},
   {path:  'banners', component: BannersComponent},  //ruta formulario  de solicitud
   {path:'form-p', component: FormPodcastComponent},
 

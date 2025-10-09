@@ -1,0 +1,69 @@
+/* Header del panel admin */
+.admin-header {
+  background-color: #5e17eb;
+  color: white;
+  text-align: center;
+  padding: 30px 20px;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.admin-header h1 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+}
+
+.admin-header p {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+/* Contenedor de las tarjetas */
+.admin-dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 30px;
+}
+
+/* Estilos de las tarjetas */
+.admin-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-card h3 {
+  color: #4e5ba1;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.admin-card p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.admin-card button {
+  background-color: #4e5ba1;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.admin-card button:hover {
+  background-color: #3e4d7e;
+}
+
+.admin-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
