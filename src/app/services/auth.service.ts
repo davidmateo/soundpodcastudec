@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import {  Observable, switchMap } from 'rxjs';
+import {  catchError, Observable, switchMap, throwError } from 'rxjs';
 import { 
   Auth, 
   signInWithEmailAndPassword, 
@@ -66,7 +66,20 @@ register(email: string, password: string, nombre: string, apellido?: string): Ob
       this.http.post(`${this.apiUrl}/login`, {}, { headers })
     );
   }
+  /**
+   * 🔹 Login de administrador
+   * Solo permite iniciar sesión si el usuario existe en la BD y tiene rol = 1
+   */
+  loginAdmin(uid: string, nombre: string, email: string): Observable<any> {
+    const body = { uid, nombre, email };
 
+    return this.http.post(`${this.apiUrl}/login-admin`, body).pipe(
+      catchError((error) => {
+        console.error('❌ Error en loginAdmin:', error);
+        return throwError(() => error);
+      })
+    );
+  }
   // 🔹 Obtener perfil desde backend
   async getPerfil(): Promise<any> {
     const user = this.auth.currentUser;

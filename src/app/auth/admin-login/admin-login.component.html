@@ -2,50 +2,59 @@
   <div class="welcome-message">
     <h1>Panel de Administración</h1>
     <p>
-      Bienvenido administrador. Inicia sesión para gestionar los podcasts y usuarios de 
+      Bienvenido administrador. Inicia sesión para gestionar los podcasts y usuarios de
       <strong>SoundPodcastU</strong>.
     </p>
   </div>
 </header>
 
 <div class="login-container">
-  <form (ngSubmit)="onSubmit()">
+  <form (ngSubmit)="onSubmit()" #form="ngForm">
     <h2>Iniciar sesión (Admin)</h2>
 
-    <!-- Usuario -->
     <div class="form-group">
-      <label for="adminUser">Usuario administrador</label>
-      <input 
-        type="text" 
-        id="adminUser" 
-        [(ngModel)]="username"  
-        name="username"
-        placeholder="Introduce tu usuario (ej: cafeteros1234)" 
-        required />
+      <label for="uid">UID</label>
+      <input
+        id="uid"
+        name="uid"
+        [(ngModel)]="uid"
+        required
+        placeholder="UID de administrador"
+      />
     </div>
 
-    <!-- Contraseña -->
     <div class="form-group">
-      <label for="adminPassword">Contraseña</label>
-      <input 
-        type="password" 
-        id="adminPassword" 
-        [(ngModel)]="password" 
-        name="password"
-        placeholder="Introduce tu contraseña" 
-        required />
+      <label for="nombre">Nombre</label>
+      <input
+        id="nombre"
+        name="nombre"
+        [(ngModel)]="nombre"
+        required
+        placeholder="Nombre del administrador"
+      />
     </div>
 
-    <!-- Botón -->
-    <button type="submit">Entrar</button>
+    <div class="form-group">
+      <label for="email">Correo</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        [(ngModel)]="email"
+        required
+        placeholder="Correo institucional"
+      />
+    </div>
 
-    <!-- Mensaje de error -->
+    <button type="submit" [disabled]="form.invalid || loading">
+      {{ loading ? 'Verificando...' : 'Entrar' }}
+    </button>
+
     <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
 
-    <!-- Enlace a login normal -->
     <div class="register-link">
       <p>
-        ¿Eres usuario normal? 
+        ¿Eres usuario normal?
         <a routerLink="/login">Ir al login de usuario</a>
       </p>
     </div>
