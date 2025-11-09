@@ -1,6 +1,58 @@
 <header>
-  <div class="welcome-message">
-    <h1>Formulario para subir Podcasts</h1>
-    <p>Llena los datos para solicitar subir tu Podcast.</p>
-  </div>
+  <h1>Solicitud de cambio a Creador</h1>
+  <p>Convierte tu cuenta en creador y comparte tus podcasts 🎧</p>
 </header>
+
+<div class="solicitud-container">
+  <form (ngSubmit)="enviarSolicitud()">
+    <h2>Formulario de Solicitud</h2>
+
+    <div class="form-group">
+      <label>Nombre </label>
+      <input
+        type="text"
+        [(ngModel)]="nombre"
+        name="nombre"
+        placeholder="Ej. David Mora Vasquez"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Correo electrónico</label>
+      <input
+        type="email"
+        [(ngModel)]="correo"
+        name="correo"
+        placeholder="tuemail@ejemplo.com"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Nuevo UID o alias de creador</label>
+      <input
+        type="text"
+        [(ngModel)]="nuevo_uid"
+        name="nuevo_uid"
+        placeholder="Ej. dudex-sound"
+        required
+      />
+    </div>
+
+    <button type="submit" [disabled]="cargando">
+      {{ cargando ? "Enviando..." : "Enviar solicitud" }}
+    </button>
+
+    <p
+      class="mensaje"
+      [ngClass]="{ success: mensaje.includes('✅'), error: mensaje.includes('Error') }"
+    >
+      {{ mensaje }}
+    </p>
+
+    <div class="volver-link">
+      <a routerLink="/index">⬅ Volver al panel</a>
+    </div>
+  </form>
+</div>

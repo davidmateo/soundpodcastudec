@@ -1,0 +1,164 @@
+/* ======= HEADER ======= */
+header {
+  background-color: #5e17eb;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  border-radius: 0 0 9px 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+header h1 {
+  font-size: 2.3rem;
+  margin-bottom: 8px;
+}
+
+header p {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* ======= CONTENEDOR PRINCIPAL ======= */
+.solicitud-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px 15px;
+  background-color: #f7f7fc;
+  min-height: calc(80vh - 120px);
+}
+
+/* ======= TARJETA DEL FORMULARIO ======= */
+form {
+  background-color: white;
+  padding: 25px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #4e5ba1;
+  font-size: 2rem;
+}
+
+/* ======= INPUTS ======= */
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  font-size: 1.05rem;
+  color: #333;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus {
+  border-color: #5e17eb;
+  outline: none;
+  box-shadow: 0 0 5px rgba(94, 23, 235, 0.4);
+}
+
+/* ======= BOTÓN ======= */
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #4e5ba1;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover:enabled {
+  background-color: #3e4d7e;
+  transform: translateY(-2px);
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* ======= MENSAJES ======= */
+.mensaje {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-top: 20px;
+}
+
+.mensaje.success {
+  color: #28a745;
+}
+
+.mensaje.error {
+  color: #dc3545;
+}
+
+/* ======= ENLACE DE VOLVER ======= */
+.volver-link {
+  text-align: center;
+  margin-top: 25px;
+}
+
+.volver-link a {
+  color: #4e5ba1;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.volver-link a:hover {
+  color: #ffcc00;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ======= RESPONSIVIDAD ======= */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.7rem;
+  }
+
+  form {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.7rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  .form-group input {
+    padding: 10px;
+  }
+
+  button {
+    font-size: 1rem;
+  }
+}
