@@ -58,7 +58,7 @@ export class FormPodcastComponent implements OnInit {
       };
 
       const res: any = await this.http
-        .post('http://localhost:3000/solicitudes', solicitud)
+        .post('http://localhost:3001/solicitudes', solicitud)
         .toPromise();
 
       this.mensaje = res.mensaje || '✅ Solicitud enviada correctamente.';

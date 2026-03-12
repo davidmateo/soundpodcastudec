@@ -1,128 +1,189 @@
-/* Estilos generales del header */
-header {
-  background-color: #5e17eb;
-  color: white;
-  padding: 20px;
-  text-align: center;
+/* HEADER */
+
+header{
+background: linear-gradient(135deg,#22c55e,#166534);
+color:white;
+padding:10px 20px;
+text-align:center;
 }
 
-.welcome-message h1 {
-  font-size: 2.3em;
-  margin-bottom: 10px;
+.welcome-message{
+
+margin:0 auto;
 }
 
-.welcome-message p {
-  font-size: 1.1em;
-  margin: 8px 0;
+.welcome-message h1{
+font-size:2.6rem;
+margin-bottom:10px;
 }
 
-.welcome-message a {
-  color: #fff;
-  text-decoration: underline;
+.welcome-message p{
+font-size:1.1rem;
+opacity:0.9;
 }
 
-.welcome-message a:hover {
-  color: #ffcc00;
+/* CONTENEDOR LOGIN */
+
+.login-container{
+display:flex;
+justify-content:center;
+align-items:center;
+padding:60px 20px 100px 20px;
+background:#f5f5f5;
+box-sizing:border-box;
 }
 
-/* Contenedor login */
-.login-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 20px 10px;
-  min-height: calc(100vh - 120px);
+/* FORMULARIO */
+
+form{
+background:white;
+padding:40px 45px;
+border-radius:14px;
+
+width:100%;
+max-width:600px;
+
+box-shadow:0 15px 40px rgba(0,0,0,0.15);
+
+margin-top:-70px;
+position:relative;
+z-index:2;
 }
 
-/* Formulario */
-form {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 100%;
-  max-width: 400px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+/* TITULO */
+
+h2{
+text-align:center;
+margin-bottom:30px;
+font-size:28px;
+font-weight:600;
+color:#166534;
 }
 
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #4e5ba1;
-  font-size: 1.8rem;
+/* INPUTS */
+
+.form-group{
+margin-bottom:20px;
+display:flex;
+flex-direction:column;
 }
 
-.form-group {
-  margin-bottom: 15px;
+.form-group label{
+font-weight:600;
+margin-bottom:8px;
+color:#333;
 }
 
-.form-group label {
-  font-size: 1.05rem;
-  color: #333;
-  display: block;
-  margin-bottom: 5px;
+.form-group input{
+padding:12px 14px;
+border-radius:8px;
+border:1px solid #ddd;
+font-size:15px;
+transition:0.3s;
 }
 
-.form-group input {
-  width: 100%;
-  padding: 12px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
+.form-group input:focus{
+outline:none;
+border-color:#22c55e;
+box-shadow:0 0 6px rgba(34,197,94,0.3);
 }
 
-.form-group input:focus {
-  border-color: #4e5ba1;
-  outline: none;
-  box-shadow: 0 0 5px rgba(78, 91, 161, 0.4);
+/* BOTON */
+
+button{
+width:100%;
+padding:14px;
+background:linear-gradient(135deg,#22c55e,#15803d);
+color:white;
+
+border:none;
+border-radius:8px;
+
+font-size:16px;
+font-weight:600;
+
+cursor:pointer;
+transition:0.3s;
 }
 
-button {
-  width: 100%;
-  padding: 12px;
-  background-color: #5e17eb; /* color principal */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
+button:hover:enabled{
+transform:translateY(-2px);
+box-shadow:0 6px 18px rgba(0,0,0,0.18);
 }
 
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+button:disabled{
+background:#ccc;
+cursor:not-allowed;
 }
 
-button:hover:enabled {
-  background-color: #3e4d7e;
+/* ERRORES */
+
+.error-message{
+color:red;
+font-size:13px;
+margin-top:5px;
 }
 
-.error-message {
-  color: red;
-  font-size: 0.9rem;
-  margin-top: 5px;
+.error{
+text-align:center;
+color:red;
+margin-top:15px;
+font-size:14px;
 }
 
-.error {
-  text-align: center;
-  color: red;
-  margin-top: 15px;
-  font-size: 1rem;
+/* LINK REGISTER */
+
+.register-link{
+text-align:center;
+margin-top:25px;
 }
 
-.register-link {
-  text-align: center;
-  margin-top: 20px;
+.register-link a{
+color:#15803d;
+font-weight:600;
+text-decoration:none;
 }
 
-.register-link a {
-  color: #5e17eb;
-  font-weight: bold;
-  text-decoration: none;
+.register-link a:hover{
+text-decoration:underline;
 }
 
-.register-link a:hover {
-  text-decoration: underline;
-  color: #ffcc00;
+/* RESPONSIVE */
+
+@media (max-width:1024px){
+
+form{
+max-width:500px;
+}
+
+}
+
+@media (max-width:768px){
+
+.welcome-message h1{
+font-size:2rem;
+}
+
+form{
+padding:35px;
+max-width:420px;
+}
+
+}
+
+@media (max-width:480px){
+
+header{
+padding:30px 15px;
+}
+
+form{
+padding:25px;
+max-width:100%;
+}
+
+button{
+font-size:15px;
+}
+
 }

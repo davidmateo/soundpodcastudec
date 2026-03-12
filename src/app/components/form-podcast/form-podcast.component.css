@@ -1,164 +1,207 @@
 /* ======= HEADER ======= */
-header {
-  background-color: #5e17eb;
-  color: white;
-  padding: 20px;
-  text-align: center;
-  border-radius: 0 0 9px 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+header{
+background: linear-gradient(135deg,#22c55e,#166534);
+color:white;
+padding:10px 20px;
+text-align:center;
+
+border-radius:0 0 12px 12px;
+box-shadow:0 8px 25px rgba(0,0,0,0.15);
 }
 
-header h1 {
-  font-size: 2.3rem;
-  margin-bottom: 8px;
+header h1{
+font-size:2.6rem;
+margin-bottom:10px;
 }
 
-header p {
-  font-size: 1.1rem;
-  margin: 0;
+header p{
+font-size:1.1rem;
+opacity:0.9;
 }
 
-/* ======= CONTENEDOR PRINCIPAL ======= */
-.solicitud-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 20px 15px;
-  background-color: #f7f7fc;
-  min-height: calc(80vh - 120px);
+/* ======= CONTENEDOR ======= */
+
+.solicitud-container{
+display:flex;
+justify-content:center;
+align-items:center;
+padding:60px 20px 100px 20px;
+background:#f5f5f5;
+box-sizing:border-box;
 }
 
-/* ======= TARJETA DEL FORMULARIO ======= */
-form {
-  background-color: white;
-  padding: 25px;
-  border-radius: 10px;
-  width: 100%;
-  max-width: 420px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+/* ======= TARJETA FORMULARIO ======= */
+
+form{
+background:white;
+
+padding:40px 45px;
+
+border-radius:14px;
+
+width:100%;
+max-width:600px;
+
+box-shadow:0 15px 40px rgba(0,0,0,0.15);
+
+margin-top:-70px;
+position:relative;
+z-index:2;
 }
 
-h2 {
-  text-align: center;
-  margin-bottom: 15px;
-  color: #4e5ba1;
-  font-size: 2rem;
+h2{
+text-align:center;
+margin-bottom:30px;
+
+font-size:28px;
+font-weight:600;
+
+color:#166534;
 }
 
 /* ======= INPUTS ======= */
-.form-group {
-  margin-bottom: 18px;
+
+.form-group{
+margin-bottom:20px;
+display:flex;
+flex-direction:column;
 }
 
-.form-group label {
-  font-size: 1.05rem;
-  color: #333;
-  display: block;
-  margin-bottom: 6px;
+.form-group label{
+font-weight:600;
+margin-bottom:8px;
+color:#333;
 }
 
-.form-group input {
-  width: 100%;
-  padding: 12px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  box-sizing: border-box;
-  transition: border-color 0.2s, box-shadow 0.2s;
+.form-group input{
+width:100%;
+
+padding:12px 14px;
+
+border-radius:8px;
+border:1px solid #ddd;
+
+font-size:15px;
+
+transition:0.3s;
+box-sizing:border-box;
 }
 
-.form-group input:focus {
-  border-color: #5e17eb;
-  outline: none;
-  box-shadow: 0 0 5px rgba(94, 23, 235, 0.4);
+.form-group input:focus{
+outline:none;
+
+border-color:#22c55e;
+box-shadow:0 0 6px rgba(34,197,94,0.3);
 }
 
-/* ======= BOTÓN ======= */
-button {
-  width: 100%;
-  padding: 12px;
-  background-color: #4e5ba1;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
+/* ======= BOTON ======= */
+
+button{
+width:100%;
+
+padding:14px;
+
+background:linear-gradient(135deg,#22c55e,#15803d);
+
+color:white;
+
+border:none;
+border-radius:8px;
+
+font-size:16px;
+font-weight:600;
+
+cursor:pointer;
+
+transition:0.3s;
 }
 
-button:hover:enabled {
-  background-color: #3e4d7e;
-  transform: translateY(-2px);
+button:hover:enabled{
+transform:translateY(-2px);
+box-shadow:0 6px 18px rgba(0,0,0,0.18);
 }
 
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+button:disabled{
+background:#ccc;
+cursor:not-allowed;
 }
 
 /* ======= MENSAJES ======= */
-.mensaje {
-  text-align: center;
-  font-size: 1.5rem;
-  margin-top: 20px;
+
+.mensaje{
+text-align:center;
+font-size:16px;
+margin-top:20px;
 }
 
-.mensaje.success {
-  color: #28a745;
+.mensaje.success{
+color:#16a34a;
 }
 
-.mensaje.error {
-  color: #dc3545;
+.mensaje.error{
+color:#dc2626;
 }
 
-/* ======= ENLACE DE VOLVER ======= */
-.volver-link {
-  text-align: center;
-  margin-top: 25px;
+/* ======= LINK VOLVER ======= */
+
+.volver-link{
+text-align:center;
+margin-top:25px;
 }
 
-.volver-link a {
-  color: #4e5ba1;
-  font-weight: bold;
-  text-decoration: none;
-  transition: color 0.3s ease;
+.volver-link a{
+color:#15803d;
+font-weight:600;
+text-decoration:none;
 }
 
-.volver-link a:hover {
-  color: #ffcc00;
-  text-decoration: underline;
-  cursor: pointer;
+.volver-link a:hover{
+text-decoration:underline;
 }
 
-/* ======= RESPONSIVIDAD ======= */
-@media (max-width: 768px) {
-  header h1 {
-    font-size: 2rem;
-  }
+/* ======= RESPONSIVE ======= */
 
-  h2 {
-    font-size: 1.7rem;
-  }
+@media (max-width:1024px){
 
-  form {
-    padding: 20px;
-  }
+form{
+max-width:500px;
 }
 
-@media (max-width: 480px) {
-  header h1 {
-    font-size: 1.7rem;
-  }
+}
 
-  h2 {
-    font-size: 1.4rem;
-  }
+@media (max-width:768px){
 
-  .form-group input {
-    padding: 10px;
-  }
+header h1{
+font-size:2rem;
+}
 
-  button {
-    font-size: 1rem;
-  }
+h2{
+font-size:24px;
+}
+
+form{
+padding:35px;
+max-width:420px;
+}
+
+}
+
+@media (max-width:480px){
+.frase {
+  display: none;
+}
+header{
+padding:15px 15px;
+}
+
+form{
+padding:15px;
+max-width:100%;
+}
+
+button{
+font-size:15px;
+}
+
 }

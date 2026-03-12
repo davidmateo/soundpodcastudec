@@ -99,3 +99,128 @@
 .btn-add:hover {
   background-color: #4913b8;
 }
+
+/* Contenedor general tipo lista */
+.solicitudes-wrapper {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* CARD BASE */
+.solicitud-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  transition: 0.2s ease;
+  border-left: 5px solid #5e17eb;
+}
+
+.solicitud-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+/* CABECERA */
+.solicitud-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.icon-user {
+  font-size: 40px;
+  color: #5e17eb;
+}
+
+/* CUERPO – VERSION NUEVA RESPONSIVA */
+.solicitud-body {
+  margin-top: 10px;
+  padding-left: 5px;
+
+  /* 🔥 Responsivo: organiza en fila si cabe */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.solicitud-body p {
+  margin: 6px 0;
+  font-size: 0.95rem;
+
+  /* 🔥 Para que cada dato se ajuste como columna mínima */
+  flex: 1 1 200px;
+  min-width: 200px;
+}
+
+/* 📱 MODO CELULAR: poner en columna */
+@media (max-width: 600px) {
+  .solicitud-body {
+    flex-direction: column;
+  }
+
+  .solicitud-body p {
+    min-width: 100%;
+  }
+}
+
+/* ESTADOS */
+.estado {
+  padding: 5px 12px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  font-size: 0.85rem;
+}
+
+.pendiente {
+  background-color: #ff9800;
+}
+
+.aprobado {
+  background-color: #4caf50;
+}
+
+.rechazado {
+  background-color: #e53935;
+}
+
+/* Tarjeta vacía */
+.empty-card {
+  text-align: center;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  color: #444;
+  border-left: 5px solid #5e17eb;
+}
+
+.empty-card mat-icon {
+  font-size: 50px;
+  color: #5e17eb;
+}
+
+/* Tarjeta loading */
+.loading-card {
+  text-align: center;
+  padding: 30px;
+  border-radius: 12px;
+  background: #fff;
+}
+
+/* Loader simple */
+.loader {
+  margin: 0 auto 10px auto;
+  border: 5px solid #eee;
+  border-top: 5px solid #5e17eb;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

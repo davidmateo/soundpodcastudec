@@ -1,8 +1,7 @@
 .footer {
-    background-color: #5e17eb;
+    background-color: var(--color-p);
     color: #f1f1f1;
     padding: 2rem 1rem 1rem;
-    font-family: 'Inter', sans-serif;
     font-size: 14px;
   }
   

@@ -2,8 +2,8 @@
   <div class="welcome-message">
     <h1>Panel de Creador</h1>
     <p>
-      Bienvenido. Inicia sesión para ver, gestionar y solicitar subir los podcasts 
-      <strong>SoundPodcastU</strong>.
+      Inicia sesión para acceder al panel de creadores y gestionar tus podcasts
+      en <strong>SoundPodcastU</strong>.
     </p>
   </div>
 </header>
@@ -12,32 +12,34 @@
   <form (ngSubmit)="onSubmit()">
     <h2>Iniciar sesión como Creador</h2>
 
-    <!-- Usuario -->
+    <!-- UID Firebase -->
     <div class="form-group">
-      <label for="adminUser">Iniciar Sesión Creador</label>
+      <label for="uid">UID  o  Nombre Creador</label>
       <input 
         type="text" 
-        id="adminUser" 
-        [(ngModel)]="username"  
-        name="username"
-        placeholder="Introduce tu usuario (ej: sasdaasd@gmail.com)" 
+        id="uid" 
+        [(ngModel)]="uid" 
+        name="uid"
+        placeholder="dmsl87"
         required />
     </div>
 
-    <!-- Contraseña -->
+    <!-- Email -->
     <div class="form-group">
-      <label for="adminPassword">Contraseña</label>
+      <label for="email">Correo Registrado</label>
       <input 
-        type="password" 
-        id="adminPassword" 
-        [(ngModel)]="password" 
-        name="password"
-        placeholder="Introduce tu contraseña" 
+        type="email" 
+        id="email" 
+        [(ngModel)]="email"  
+        name="email"
+        placeholder="Ingresa tu correo"
         required />
     </div>
 
     <!-- Botón -->
-    <button type="submit">Entrar</button>
+    <button type="submit" [disabled]="loading">
+      {{ loading ? 'Validando...' : 'Entrar' }}
+    </button>
 
     <!-- Mensaje de error -->
     <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
@@ -46,7 +48,7 @@
     <div class="register-link">
       <p>
         ¿Eres usuario normal? 
-        <a routerLink="/login">Ir al login de usuario</a>
+        <a routerLink="/login">Iniciar sesión como estudiante</a>
       </p>
     </div>
   </form>

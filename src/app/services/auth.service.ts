@@ -19,7 +19,7 @@ export class AuthService {
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSubject.asObservable();
 
-  private apiUrl = 'http://localhost:3000/usuarios'; // 👈 tu backend local
+  private apiUrl = 'http://localhost:3001/usuarios'; // 👈 tu backend local
 
   constructor(
     private auth: Auth,
@@ -76,6 +76,21 @@ register(email: string, password: string, nombre: string, apellido?: string): Ob
     return this.http.post(`${this.apiUrl}/login-admin`, body).pipe(
       catchError((error) => {
         console.error('❌ Error en loginAdmin:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+  /** 
+     * Login de creador
+   Solo permite iniciar sesión si el usuario existe en la BD y tiene rol = 4
+
+   */
+  loginCreador(uid: string,  email: string): Observable<any> {
+    const body = { uid, email };
+
+    return this.http.post(`${this.apiUrl}/login-creador`, body).pipe(
+      catchError((error) => {
+        console.error('❌ Error en loginCreador:', error);
         return throwError(() => error);
       })
     );

@@ -1,67 +1,116 @@
+/* NAVBAR GENERAL */
 .navbar{
-    background-color: #5e17eb;
-    color: white;
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:0 24px;
+height:64px;
+
+background:linear-gradient(135deg,#22c55e,#166534);
+color:white;
+
+box-shadow:0 4px 10px rgba(0,0,0,0.15);
+font-family:'Poppins', sans-serif;
 }
-mat-icon, button, span{
-    color: white;
+.navbar span{
+font-family:'Poppins', sans-serif;
+font-weight:500;
 }
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 1rem;
-  }
-  
-  .navbar-left {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .logo-icon {
-    font-size: 32px;
-  }
-  
-  .title {
-    font-size: 20px;
-    font-weight: bold;
-  }
-  
-  .navbar-center {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-  }
-  
-  .navbar-right {
-    display: flex;
-    align-items: center;
-  }
-  
-  .hide-on-mobile {
-    display: flex;
-  }
-  .i {
-    color:#5e17eb;
-  }
-  .logo{
-    display: flex;
-    width: 50px;
-  }
-  .hide-on-desktop {
-    display: none;
-  }
-  .i{
-    color: #5e17eb;
-  }
-  
-  /* Responsive breakpoints */
-  @media (max-width: 768px) {
-    .hide-on-mobile {
-      display: none;
-    }
-  
-    .hide-on-desktop {
-      display: inline-flex;
-    }
-  }
-  
+
+.navbar button{
+display:flex;
+align-items:center;
+gap:6px;
+}
+
+/* ICONOS */
+mat-icon{
+color:white;
+}
+
+/* LOGO Y TITULO */
+.navbar-left{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.logo{
+width:40px;
+height:auto;
+}
+
+.logo-icon{
+font-size:30px;
+}
+
+.title{
+font-size:22px;
+font-weight:600;
+letter-spacing:0.3px;
+}
+
+/* LINKS CENTRALES */
+.navbar-center{
+display:flex;
+gap:20px;
+align-items:center;
+}
+
+/* BOTONES NAV */
+.navbar-center button,
+.navbar-right button{
+color:white;
+font-size:15px;
+font-weight:500;
+transition:0.25s;
+}
+
+/* EFECTO HOVER */
+.navbar-center button:hover,
+.navbar-right button:hover{
+transform:translateY(-2px);
+opacity:0.9;
+}
+
+/* AREA DERECHA */
+.navbar-right{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+/* CLASES VISIBILIDAD */
+.hide-on-mobile{
+display:flex;
+}
+
+.hide-on-desktop{
+display:none;
+}
+
+/* RESPONSIVE */
+@media (max-width:768px){
+
+.navbar{
+padding:0 16px;
+}
+
+.title{
+font-size:18px;
+}
+
+.navbar-center{
+gap:10px;
+}
+
+.hide-on-mobile{
+display:none;
+}
+
+.hide-on-desktop{
+display:flex;
+}
+
+}

@@ -1,6 +1,6 @@
 /* Header */
 .admin-header {
-  background-color: #5e17eb;
+  background-color: var(--color-p);
   color: white;
   text-align: center;
   padding: 30px 20px;

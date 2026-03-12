@@ -1,44 +1,90 @@
 <mat-toolbar class="navbar">
+
   <div class="navbar-left">
-    <img src="../../../assets/sp.png" class="logo" alt="">
+    <img src="../../../assets/Sound-Podcast.png" class="logo" alt="">
     <span class="title">SoundPodcastU</span>
   </div>
 
   <div class="navbar-center hide-on-mobile">
-    <button mat-button><mat-icon>home</mat-icon><span>Inicio</span></button>
-    <button mat-button><mat-icon>explore</mat-icon><span>Explorar</span></button>
-    <button mat-button><mat-icon>favorite</mat-icon><span>Favoritos</span></button>
 
-    <!-- Mostrar Login/Register o Logout según si el usuario está autenticado -->
-    <ng-container *ngIf="!(user$ | async); else loggedIn">
-      <button mat-button routerLink="/login"> <mat-icon>login</mat-icon><span >Login</span></button>
-      <button mat-button routerLink="/register"> <mat-icon>how_to_reg</mat-icon><span >Register</span></button>
+    <button mat-button routerLink="/">
+      <mat-icon>home</mat-icon>
+      <span>Inicio</span>
+    </button>
+
+    <ng-container *ngIf="!isAdminLoggedIn && !(user$ | async); else loggedIn">
+
+      <button mat-button routerLink="/login">
+        <mat-icon>login</mat-icon>
+        <span>Login</span>
+      </button>
+
+      <button mat-button routerLink="/register">
+        <mat-icon>how_to_reg</mat-icon>
+        <span>Register</span>
+      </button>
+
     </ng-container>
 
     <ng-template #loggedIn>
-      <button mat-button (click)="logout()"><mat-icon>logout</mat-icon><span >Logout</span></button>
+
+      <button *ngIf="isAdminLoggedIn" mat-button routerLink="/admin-dashboard">
+        <mat-icon>dashboard</mat-icon>
+        <span>Panel Admin</span>
+      </button>
+
+      <button mat-button (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </button>
+
     </ng-template>
+
   </div>
 
   <div class="navbar-right">
+
     <button mat-icon-button class="hide-on-desktop">
       <mat-icon [matMenuTriggerFor]="menu">menu</mat-icon>
     </button>
 
     <mat-menu #menu="matMenu">
-      <button mat-menu-item><mat-icon>home</mat-icon><span class="i">Inicio</span></button>
-      <button mat-menu-item><mat-icon>explore</mat-icon><span class="i">Explorar</span></button>
-      <button mat-menu-item><mat-icon>favorite</mat-icon><span class="i">Favoritos</span></button>
 
-      <!-- Mostrar Login/Register o Logout según si el usuario está autenticado -->
-      <ng-container *ngIf="!(user$ | async); else loggedInMenu">
-        <button mat-menu-item routerLink="/login"><mat-icon>login</mat-icon><span class="i">Login</span></button>
-        <button mat-menu-item routerLink="/register"><mat-icon>how_to_reg</mat-icon><span class="i">Register</span></button>
+      <button mat-menu-item routerLink="/">
+        <mat-icon>home</mat-icon>
+        <span>Inicio</span>
+      </button>
+
+      <ng-container *ngIf="!isAdminLoggedIn && !(user$ | async); else loggedInMenu">
+
+        <button mat-menu-item routerLink="/login">
+          <mat-icon>login</mat-icon>
+          <span>Login</span>
+        </button>
+
+        <button mat-menu-item routerLink="/register">
+          <mat-icon>how_to_reg</mat-icon>
+          <span>Register</span>
+        </button>
+
       </ng-container>
 
       <ng-template #loggedInMenu>
-        <button mat-menu-item (click)="logout()"><mat-icon>logout</mat-icon><span class="i">Logout</span></button>
+
+        <button *ngIf="isAdminLoggedIn" mat-menu-item routerLink="/admin-dashboard">
+          <mat-icon>dashboard</mat-icon>
+          <span>Panel Admin</span>
+        </button>
+
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+
       </ng-template>
+
     </mat-menu>
+
   </div>
+
 </mat-toolbar>

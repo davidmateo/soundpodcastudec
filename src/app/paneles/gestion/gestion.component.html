@@ -1,40 +1,49 @@
-<!-- Header del módulo de podcasts -->
-<div class="admin-header">
-  <h1>Gestión de Podcasts</h1>
-  <p>Administra, edita y organiza tus podcasts fácilmente</p>
-</div>
+<!-- ENCABEZADO -->
+<header class="admin-header">
+  <h1>Centro de Solicitudes Cambio de Rol</h1>
+  <p>Gestiona y revisa las solicitudes enviadas por los usuarios.</p>
+</header>
 
-<!-- Contenedor de tarjetas -->
-<div class="admin-dashboard">
-  <div class="admin-card">
-    <h3>Podcast Inspirador</h3>
-    <p>Un espacio de reflexión y motivación.</p>
-    <div>
-      <a routerLink="/podcast/edit/1" class="btn-card">Editar</a>
-      <a routerLink="/podcast/delete/1" class="btn-card danger">Eliminar</a>
+<!-- CONTENEDOR PRINCIPAL -->
+<div class="solicitudes-wrapper">
+
+  <!-- Estado de carga -->
+  <div *ngIf="loading" class="solicitud loading-card">
+    <div class="loader"></div>
+    <p>Cargando solicitudes...</p>
+  </div>
+
+  <!-- Sin solicitudes -->
+  <div *ngIf="!loading && solicitudes.length === 0" class="solicitud empty-card">
+    <mat-icon>inbox</mat-icon>
+    <h3>No hay solicitudes</h3>
+    <p>Actualmente no existen solicitudes registradas.</p>
+  </div>
+
+  <!-- LISTA DE SOLICITUDES -->
+  <div *ngFor="let s of solicitudes" class="solicitud solicitud-card">
+
+    <div class="solicitud-header">
+      <mat-icon class="icon-user">account_circle</mat-icon>
+      <div>
+        <h3>{{ s.nombre }}</h3>
+        <span class="estado"
+          [ngClass]="{
+            'pendiente': s.estado === 'pendiente',
+            'aprobado': s.estado === 'aprobado',
+            'rechazado': s.estado === 'rechazado'
+          }"
+        >
+          {{ s.estado | uppercase }}
+        </span>
+      </div>
+    </div>
+
+    <div class="solicitud-body">
+      <p><strong>Email:</strong> {{ s.correo }}</p>
+      <p><strong>UID Firebase:</strong> {{ s.uid_firebase }}</p>
+      <p><strong>Nuevo UID solicitado:</strong> {{ s.nuevo_uid }}</p>
     </div>
   </div>
 
-  <div class="admin-card">
-    <h3>Historias de Fe</h3>
-    <p>Testimonios y experiencias que transforman vidas.</p>
-    <div>
-      <a routerLink="/podcast/edit/2" class="btn-card">Editar</a>
-      <a routerLink="/podcast/delete/2" class="btn-card danger">Eliminar</a>
-    </div>
-  </div>
-
-  <div class="admin-card">
-    <h3>Música y Palabra</h3>
-    <p>Episodios con música y mensajes cristianos.</p>
-    <div>
-      <a routerLink="/podcast/edit/3" class="btn-card">Editar</a>
-      <a routerLink="/podcast/delete/3" class="btn-card danger">Eliminar</a>
-    </div>
-  </div>
-</div>
-
-<!-- Botón para añadir nuevo podcast -->
-<div class="add-podcast">
-  <a routerLink="/nuevo_podcast" class="btn-add">+ Nuevo Podcast</a>
 </div>

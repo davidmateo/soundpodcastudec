@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-admin-login',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterModule],
   templateUrl: './admin-login.component.html',
   styleUrls: ['./admin-login.component.css'],
 })
@@ -19,7 +19,7 @@ export class AdminLoginComponent {
   loading: boolean = false;
 
   // ✅ URL exacta de tu backend (según el router que mostraste)
-  private apiUrl = 'http://localhost:3000/usuarios/login-admin';
+  private apiUrl = 'http://localhost:3001/usuarios/login-admin';
 
   constructor(private http: HttpClient, private router: Router) {}
 
