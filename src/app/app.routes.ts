@@ -12,6 +12,7 @@ import { BannersComponent } from './paneles/banners/banners.component';
 import { NuevoPodcastComponent } from './paneles/nuevo-podcast/nuevo-podcast.component';
 import { CreadorDashboardComponent } from './components/creador-dashboard/creador-dashboard.component';
 import { CreadorLoginComponent } from './auth/creador-login/creador-login.component';
+import { PodcastdetailComponent } from './components/podcastdetail/podcastdetail.component';
 
 
 export const routes: Routes = [
@@ -29,6 +30,7 @@ export const routes: Routes = [
   {path:'creador-dashboard', component: CreadorDashboardComponent},
   {path:  'banners', component: BannersComponent},  //ruta formulario  de solicitud
   {path:'form-p', component: FormPodcastComponent},
+  { path: 'podcast/:title', component: PodcastdetailComponent },
 
   // Ruta protegida por el AuthGuard, solo accesible si el usuario está autenticado
   { path: 'index', component: IndexComponent, canActivate: [AuthGuard] },

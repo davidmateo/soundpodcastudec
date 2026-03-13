@@ -1,0 +1,84 @@
+<div class="podcast-layout" *ngIf="podcast">
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="podcast-main">
+    <div class="podcast-header">
+
+  <img
+    *ngIf="podcast.imageUrl"
+    [src]="podcast.imageUrl"
+    alt="{{ podcast.title }}"
+    class="podcast-cover"
+  >
+
+  <div class="podcast-info">
+
+    <h1 class="podcast-title">
+      {{ podcast.title }}
+    </h1>
+
+    <p class="author">
+      🎙 Subido por {{ podcast.uploadedBy }}
+    </p>
+
+    <p class="likes">
+      👍 {{ podcast.likes }} likes
+    </p>
+
+  </div>
+
+</div>
+
+<div class="player">
+  <iframe
+    *ngIf="podcast.safeAudioUrl"
+    [src]="podcast.safeAudioUrl"
+    width="100%"
+    height="152"
+    frameborder="0"
+    loading="lazy">
+  </iframe>
+</div>
+
+    <h3>Descripción</h3>
+
+    <p class="description">
+      {{ podcast.description }}
+    </p>
+
+  </div>
+
+  <!-- PODCASTS SUGERIDOS -->
+  <aside class="podcast-suggested">
+
+    <h3>Podcasts sugeridos</h3>
+
+    <div class="suggested-slider">
+
+      <a
+        class="suggested-card"
+        *ngFor="let p of suggestedPodcasts"
+        [routerLink]="['/podcast', generateSlug(p.title)]"
+      >
+
+        <img
+          *ngIf="p.imageUrl"
+          [src]="p.imageUrl"
+          alt="{{ p.title }}"
+        >
+
+        <div class="suggested-info">
+
+          <h4>{{ p.title }}</h4>
+
+          <p>👍 {{ p.likes }}</p>
+
+        </div>
+
+      </a>
+
+    </div>
+
+  </aside>
+
+</div>

@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../components/header/header.component';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-index',
@@ -18,12 +19,14 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
     MatCardModule,
     MatIconModule,
     MatButtonModule,
-    HeaderComponent
+    HeaderComponent,
+    RouterModule
   ],
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
+  
   // Ahora se añade también safeImageUrl
   podcasts$: Observable<(Podcast & { safeAudioUrl: SafeResourceUrl, safeImageUrl?: SafeResourceUrl })[]> | undefined;
 
@@ -71,5 +74,11 @@ getLikedPodcasts(): string[] {
 setLikedPodcasts(podcastIds: string[]) {
   localStorage.setItem('likedPodcasts', JSON.stringify(podcastIds));
 }
-
+generateSlug(title: string): string {
+  return title
+    .toLowerCase()
+    .trim()
+    .replace(/ /g, '-')
+    .replace(/[^\w-]+/g, '');
+}
 }
