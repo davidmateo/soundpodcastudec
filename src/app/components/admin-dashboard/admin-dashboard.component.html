@@ -1,27 +1,76 @@
-<header class="admin-header">
-  <h1>Panel de Administración</h1>
-  <p>Gestiona la plataforma de SoundPodcastUdec desde aquí.</p>
-</header>
+<div class="dashboard">
 
-<div class="admin-dashboard">
-  <!-- Gestión de contenido -->
-  <div class="admin-card">
-    <h3>Gestión de Solicitudes</h3>
-    <p>Administra y gestiona solicitudes de cambio de roles y podcast</p>
-    <a routerLink="/gestion"><button>Ir a gestión</button></a>
+  <!-- HEADER -->
+  <header class="admin-header">
+    <h1>Panel de Administración</h1>
+    <p>Gestiona la plataforma de SoundPodcastUdec desde aquí.</p>
+  </header>
+
+  <!-- RESUMEN -->
+  <div class="resumen-container">
+
+    <!-- TOTAL -->
+    <div class="card resumen total">
+      <h4>Total Usuarios</h4>
+      <h1>{{ total }}</h1>
+      <p>Registrados en la plataforma</p>
+    </div>
+
+    <!-- NUEVOS -->
+    <div class="card resumen nuevos">
+      <h4>Nuevos (7 días)</h4>
+      <h1>{{ nuevos }}</h1>
+      <p>Última semana</p>
+    </div>
+
+    <!-- ROLES -->
+    <div class="card roles">
+      <h4>Usuarios por rol</h4>
+
+      <div *ngFor="let r of rolesResumen" class="rol-item">
+        <span>{{ r.rol }}</span>
+        <strong>{{ r.cantidad }}</strong>
+      </div>
+
+    </div>
+
   </div>
 
-  <!-- Moderación de cuentas -->
-  <div class="admin-card">
-    <h3>Moderación de cuentas</h3>
-    <p>Supervisa usuarios, revisa reportes y gestiona accesos de administradores.</p>
-    <a routerLink="/moderacion"><button>Ir a moderación</button></a>
+  <!-- GRÁFICAS -->
+  <div class="charts">
+
+    <div class="chart-container">
+        <h4>Usuarios por rol</h4>
+        <canvas id="graficaRoles"></canvas>
+    </div>
+      <div class="chart-container ">
+        <h4>Usuarios por mes</h4>
+        <canvas id="graficaUsuariosMes"></canvas>
+  </div>
   </div>
 
-  <!-- Novedades de banner -->
-  <div class="admin-card">
-    <h3>Novedades de banner</h3>
-    <p>Actualiza los banners principales con novedades, eventos o anuncios destacados.</p>
-    <a routerLink="/banners"><button>Ir a banners</button></a>
+
+  <!-- ACCIONES ADMIN -->
+  <div class="admin-dashboard">
+
+    <div class="admin-card">
+      <h3>Gestión de Solicitudes</h3>
+      <p>Administra solicitudes de roles y contenido</p>
+      <a routerLink="/gestion"><button>Ir</button></a>
+    </div>
+
+    <div class="admin-card">
+      <h3>Moderación</h3>
+      <p>Control de usuarios y accesos</p>
+      <a routerLink="/moderacion"><button>Ir</button></a>
+    </div>
+
+    <div class="admin-card">
+      <h3>Banners</h3>
+      <p>Administra contenido visual</p>
+      <a routerLink="/banners"><button>Ir</button></a>
+    </div>
+
   </div>
+
 </div>

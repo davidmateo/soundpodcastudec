@@ -26,9 +26,11 @@ export class PodcastdetailComponent implements OnInit {
     private sanitizer: DomSanitizer
   ) {}
 
-  ngOnInit(): void {
+ngOnInit(): void {
 
-    const slug = this.route.snapshot.paramMap.get('title');
+  this.route.paramMap.subscribe(params => {
+
+    const slug = params.get('title');
 
     this.podcastService.getPodcasts().subscribe(podcasts => {
 
@@ -52,7 +54,9 @@ export class PodcastdetailComponent implements OnInit {
 
     });
 
-  }
+  });
+
+}
 
   generateSlug(title: string): string {
     return title

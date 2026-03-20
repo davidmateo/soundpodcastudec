@@ -5,6 +5,40 @@ body{
     #e8ecf1 100%
   );
 }
+.back-button{
+
+  display:inline-block;
+
+  margin:20px auto;
+
+  padding:8px 14px;
+
+  border-radius:8px;
+
+  background:var(--color-p);
+
+  color:white;
+
+  font-size:14px;
+
+  text-decoration:none;
+
+  border:none;
+
+  cursor:pointer;
+
+  transition:0.2s;
+
+}
+
+.back-button:hover{
+
+  background:#e2e6ea;
+
+
+  transform:translateX(-2px);
+
+}
 
 /* LAYOUT GENERAL */
 

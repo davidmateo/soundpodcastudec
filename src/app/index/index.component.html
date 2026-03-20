@@ -12,22 +12,25 @@
       class="podcast-image"
     >
 
-    <mat-card-content class="card-content">
+<mat-card-content class="card-content">
 
-      <!-- Título -->
-      <h3 class="podcast-title">
-        {{ podcast.title }}
-      </h3>
+  <div class="podcast-card-header">
 
-      <!-- Botón para ir a la vista completa -->
-      <button 
-        mat-raised-button 
-        color="primary"
-        [routerLink]="['/podcast', generateSlug(podcast.title)]">
-        Ver podcast
-      </button>
+    <h3 class="podcast-title">
+      {{ podcast.title }}
+    </h3>
 
-    </mat-card-content>
+    <button 
+      mat-raised-button 
+      color="primary"
+      class="podcast-button"
+      [routerLink]="['/podcast', generateSlug(podcast.title)]">
+      <p>▶ Escuchar</p>
+    </button>
+
+  </div>
+
+</mat-card-content>
 
   </mat-card>
 
