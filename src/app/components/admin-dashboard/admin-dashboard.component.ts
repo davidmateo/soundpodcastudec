@@ -75,7 +75,7 @@ export class AdminDashboardComponent implements OnInit {
       },
       options: {
         responsive: true,
-        maintainAspectRatio: false,
+        maintainAspectRatio: false,   
       }
     });
   }
