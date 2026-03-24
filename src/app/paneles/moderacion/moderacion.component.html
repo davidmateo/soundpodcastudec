@@ -1,31 +1,93 @@
-<!-- Header de moderación -->
-<div class="admin-header">
-  <h1>Moderación de Cuentas</h1>
-  <p>Supervisa usuarios, revisa reportes y gestiona cuentas del sistema</p>
-</div>
+<div class="container">
 
-<!-- Contenedor de tarjetas -->
-<div class="admin-dashboard">
+  <h2>Gestión de Usuarios</h2>
 
-  <!-- Supervisar usuarios -->
-  <div class="admin-card">
-    <h3>Supervisión de Usuarios</h3>
-    <p>Consulta la actividad de los usuarios y aplica medidas cuando sea necesario.</p>
-    <a routerLink="/moderation/users" class="btn-card">Ir a Usuarios</a>
+  <div class="layout">
+
+    <!-- 🔹 TABLA (principal) -->
+    <div class="tabla">
+      <div class="card">
+        <h3>Lista de Usuarios</h3>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>UID</th>
+                <th>Email</th>
+                <th>Nombre</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let u of usuarios">
+                <td>{{ u.uid }}</td>
+                <td>{{ u.email }}</td>
+                <td>{{ u.nombre }}</td>
+                <td>{{ u.id_rol }}</td>
+
+                <td class="actions">
+                  <button class="btn edit" (click)="editarUsuario(u)">Editar</button>
+                  <button class="btn delete" (click)="eliminarUsuario(u.uid)">Eliminar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🔹 FORM CREAR (lateral) -->
+    <div class="formulario">
+      <div class="card">
+        <h3>Crear Usuario</h3>
+
+        <div class="form-grid">
+          <input [(ngModel)]="nuevoUsuario.uid" placeholder="UID">
+          <input [(ngModel)]="nuevoUsuario.email" placeholder="Email">
+          <input [(ngModel)]="nuevoUsuario.nombre" placeholder="Nombre">
+          <input [(ngModel)]="nuevoUsuario.apellido" placeholder="Apellido">
+          <input [(ngModel)]="nuevoUsuario.id_rol" type="number" placeholder="Rol">
+        </div>
+
+        <button 
+          class="btn primary"
+          (click)="crearUsuario()"
+          [disabled]="!nuevoUsuario.uid || !nuevoUsuario.email || !nuevoUsuario.nombre || !nuevoUsuario.apellido || !nuevoUsuario.id_rol">
+          Crear Usuario
+        </button>
+
+        <p class="error" *ngIf="!nuevoUsuario.uid || !nuevoUsuario.email || !nuevoUsuario.nombre || !nuevoUsuario.apellido || !nuevoUsuario.id_rol">
+          --- Todos los campos son obligatorios ---
+        </p>
+      </div>
+    </div>
+
   </div>
 
-  <!-- Revisar reportes -->
-  <div class="admin-card">
-    <h3>Revisión de Reportes</h3>
-    <p>Accede a los reportes enviados y decide las acciones a seguir.</p>
-    <a routerLink="/moderation/reports" class="btn-card">Ver Reportes</a>
-  </div>
+  <!-- 🔹 EDITAR (abajo completo) -->
+  <div class="card" *ngIf="usuarioEditando">
+    <h3>Editar Usuario</h3>
 
-  <!-- Gestión de cuentas -->
-  <div class="admin-card">
-    <h3>Gestión de Cuentas</h3>
-    <p>Bloquea, reactiva o ajusta permisos de usuarios según sea necesario.</p>
-    <a routerLink="/moderation/accounts" class="btn-card">Gestionar Cuentas</a>
+    <div class="form-grid">
+      <input [(ngModel)]="usuarioEditando.email" placeholder="Email">
+      <input [(ngModel)]="usuarioEditando.nombre" placeholder="Nombre">
+      <input [(ngModel)]="usuarioEditando.apellido" placeholder="Apellido">
+      <input [(ngModel)]="usuarioEditando.id_rol" type="number" placeholder="Rol">
+    </div>
+
+    <div class="actions">
+      <button 
+        class="btn primary"
+        (click)="actualizarUsuario()"
+        [disabled]="!usuarioEditando.email || !usuarioEditando.nombre || !usuarioEditando.apellido || !usuarioEditando.id_rol">
+        Guardar
+      </button>
+
+      <button class="btn cancel" (click)="cancelarEdicion()">Cancelar</button>
+    </div>
   </div>
 
 </div>

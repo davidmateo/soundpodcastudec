@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import {  catchError, Observable, switchMap, throwError } from 'rxjs';
+import {  catchError, Observable, switchMap, throwError, tap } from 'rxjs';
 import { 
   Auth, 
   signInWithEmailAndPassword, 
@@ -70,16 +70,18 @@ register(email: string, password: string, nombre: string, apellido?: string): Ob
    * 🔹 Login de administrador
    * Solo permite iniciar sesión si el usuario existe en la BD y tiene rol = 1
    */
-  loginAdmin(uid: string, nombre: string, email: string): Observable<any> {
-    const body = { uid, nombre, email };
-
-    return this.http.post(`${this.apiUrl}/login-admin`, body).pipe(
-      catchError((error) => {
-        console.error('❌ Error en loginAdmin:', error);
-        return throwError(() => error);
-      })
-    );
-  }
+ loginAdmin(uid: string, nombre: string, email: string): Observable<any> {
+  return this.http.post(`${this.apiUrl}/login-admin`, { uid, nombre, email }).pipe(
+    tap((res: any) => {
+      // 🔥 GUARDAMOS EL UID REAL (NO ID)
+      localStorage.setItem('admin_uid', uid);
+    }),
+    catchError((error) => {
+      console.error('❌ Error en loginAdmin:', error);
+      return throwError(() => error);
+    })
+  );
+}
   /** 
      * Login de creador
    Solo permite iniciar sesión si el usuario existe en la BD y tiene rol = 4
@@ -125,4 +127,7 @@ register(email: string, password: string, nombre: string, apellido?: string): Ob
   logout() {
     return from(this.ngZone.run(() => signOut(this.auth)));
   }
+  
 }
+
+

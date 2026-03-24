@@ -16,8 +16,6 @@ export class AdminDashboardComponent implements OnInit {
   total = 0;
   nuevos = 0;
   rolesResumen: any[] = [];
-
-  private chartUsuarios: Chart | null = null;
   private chartRoles: Chart | null = null;
   private chartMeses: Chart | null = null;
 
