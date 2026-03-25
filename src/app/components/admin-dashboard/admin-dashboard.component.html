@@ -1,9 +1,48 @@
 <div class="dashboard">
 
   <!-- HEADER -->
-  <header class="admin-header">
-    <h1>Panel de Administración</h1>
-    <p>Gestiona la plataforma de SoundPodcastUdec desde aquí.</p>
+  <header class="admin-header flex justify-between items-center">
+    <div>
+      <h1>Panel de Administración</h1>
+      <p>Gestiona la plataforma de SoundPodcastUdec desde aquí.</p>
+    </div>
+
+    <!-- BOTÓN DE NOTIFICACIONES -->
+    <div class="relative" (click)="toggleDropdown()">
+      <button class="flex items-center p-2 bg-gray-200 rounded-full hover:bg-gray-300">
+        <span class="material-icons">notifications</span>
+        <span *ngIf="notificaciones.length > 0" 
+              class="ml-1 bg-red-500 text-white text-xs px-2 rounded-full">
+          {{ notificaciones.length }}
+        </span>
+      </button>
+
+      <!-- DROPDOWN -->
+      <div *ngIf="dropdownOpen" 
+           class="absolute right-0 mt-2 w-80 bg-white shadow-lg rounded-lg max-h-96 overflow-auto z-50">
+
+        <div class="flex justify-between items-center p-2 border-b">
+          <h3 class="font-bold">Notificaciones</h3>
+          <button (click)="marcarNotificacionesLeidas()"
+                  class="text-sm text-white bg-purple-600 hover:bg-purple-700 px-2 py-1 rounded">
+            Marcar todas como leídas
+          </button>
+        </div>
+
+        <ul>
+          <li *ngFor="let n of notificaciones" class="p-2 border-b hover:bg-gray-100">
+            <strong>{{ n.usuario }}</strong> {{ n.tipo_accion }}
+            <div class="text-gray-500 text-xs">
+              hace {{ n.fecha_hora | date:'short' }}
+            </div>
+          </li>
+        </ul>
+
+        <div *ngIf="notificaciones.length === 0" class="p-2 text-gray-500">
+          No hay notificaciones nuevas.
+        </div>
+      </div>
+    </div>
   </header>
 
   <!-- RESUMEN -->
@@ -26,51 +65,43 @@
     <!-- ROLES -->
     <div class="card roles">
       <h4>Usuarios por rol</h4>
-
       <div *ngFor="let r of rolesResumen" class="rol-item">
         <span>{{ r.rol }}</span>
         <strong>{{ r.cantidad }}</strong>
       </div>
-
     </div>
 
   </div>
 
   <!-- GRÁFICAS -->
   <div class="charts">
-
     <div class="chart-container">
-        <h4>Usuarios por rol</h4>
-        <canvas id="graficaRoles"></canvas>
+      <h4>Usuarios por rol</h4>
+      <canvas id="graficaRoles"></canvas>
     </div>
-      <div class="chart-container ">
-        <h4>Usuarios por mes</h4>
-        <canvas id="graficaUsuariosMes"></canvas>
+    <div class="chart-container">
+      <h4>Usuarios por mes</h4>
+      <canvas id="graficaUsuariosMes"></canvas>
+    </div>
   </div>
-  </div>
-
 
   <!-- ACCIONES ADMIN -->
   <div class="admin-dashboard">
-
     <div class="admin-card">
       <h3>Gestión de Solicitudes</h3>
       <p>Administra solicitudes de roles y contenido</p>
       <a routerLink="/gestion"><button>Ir</button></a>
     </div>
-
     <div class="admin-card">
       <h3>Moderación</h3>
       <p>Control de usuarios y accesos</p>
       <a routerLink="/moderacion"><button>Ir</button></a>
     </div>
-
     <div class="admin-card">
       <h3>Banners</h3>
       <p>Administra contenido visual</p>
       <a routerLink="/banners"><button>Ir</button></a>
     </div>
-
   </div>
 
 </div>

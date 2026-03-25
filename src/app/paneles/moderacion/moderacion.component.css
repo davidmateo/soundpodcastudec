@@ -1,25 +1,47 @@
+/* =========================
+   📦 CONTENEDOR GENERAL
+========================= */
 .container {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: auto;
   padding: 20px;
-
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 h2 {
   text-align: center;
   margin-bottom: 20px;
   color: #1f7a3f;
+  font-size: 28px;
 }
 
+/* =========================
+   🃏 TARJETAS
+========================= */
 .card {
   background: #ffffff;
   padding: 20px;
   border-radius: 12px;
   border: 1px solid #dcdcdc;
   margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-/* 🔹 FORM RESPONSIVO */
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* =========================
+   🔹 FORM RESPONSIVO
+========================= */
 .form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -30,43 +52,54 @@ h2 {
 input {
   padding: 10px;
   border-radius: 8px;
-  margin: 5px;
   border: 1px solid #ccc;
   outline: none;
-  width: 100%  - 10px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 input:focus {
   border-color: #28a745;
+  box-shadow: 0 0 5px rgba(40, 167, 69, 0.3);
 }
 
-/* 🔹 TABLA RESPONSIVA */
+/* =========================
+   🔹 TABLA RESPONSIVA
+========================= */
 .table-container {
   width: 100%;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* tabla normal */
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 600px; /* 👈 clave para scroll horizontal */
+  min-width: 600px; /* scroll solo si es necesario */
 }
 
 th, td {
-  padding: 10px;
+  padding: 8px;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
 
 th {
   background: #f5f5f5;
+  color: #333;
 }
 
-/* 🔹 BOTONES */
+tr:hover {
+  background: #f9f9f9;
+}
+
+/* =========================
+   🔹 BOTONES
+========================= */
 .actions {
   display: flex;
-  flex-wrap: wrap; /* 👈 importante en móvil */
+  flex-wrap: wrap;
   gap: 5px;
 }
 
@@ -75,13 +108,17 @@ th {
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  min-width: 80px;
+  transition: background 0.3s, transform 0.2s;
 }
 
-/* colores */
+.btn:hover {
+  transform: translateY(-1px);
+}
+
 .btn.primary {
   background: #28a745;
   color: white;
-  width: 100%; /* 👈 botón grande en móvil */
 }
 
 .btn.primary:hover {
@@ -90,6 +127,11 @@ th {
 
 .btn.edit {
   background: #ffc107;
+  color: #212529;
+}
+
+.btn.edit:hover {
+  background: #e0a800;
 }
 
 .btn.delete {
@@ -97,60 +139,95 @@ th {
   color: white;
 }
 
+.btn.delete:hover {
+  background: #c82333;
+}
+
 .btn.cancel {
   background: #6c757d;
   color: white;
 }
+
+.btn.cancel:hover {
+  background: #5a6268;
+}
+
+/* =========================
+   🔹 LAYOUT FLEXIBLE
+========================= */
 .layout {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr; /* default stacked */
   gap: 20px;
 }
 
+/* =========================
+   🔹 PANTALLAS GRANDES (desktop)
+========================= */
+@media (min-width: 1025px) {
+  .layout {
+    grid-template-columns: 2fr 1fr; /* Tabla + Crear Usuario */
+    gap: 30px;
+    align-items: start;
+  }
 
-/* 📱 MOBILE */
+  /* Forzar que el formulario de editar siempre quede abajo del crear usuario */
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* espacio entre Crear y Editar */
+  }
+}
+
+
+/* =========================
+   🔹 TABLET / MEDIUM
+========================= */
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: 1fr; /* todo apilado */
+    gap: 20px;
+  }
+}
+
+/* =========================
+   📱 MOBILE
+========================= */
 @media (max-width: 768px) {
-
-  .container {
-    padding: 10px;
-  }
-
-  .card {
-    padding: 15px;
-  }
-
-  h2 {
-    font-size: 20px;
+  .btn {
+    font-size: 14px;
+    padding: 6px 10px;
+    width: 100%;
   }
 
   table {
     font-size: 12px;
   }
-
-  .btn {
-    font-size: 12px;
-    padding: 6px 8px;
-  }
 }
 
-/* 📱 EXTRA PEQUEÑO */
 @media (max-width: 480px) {
-
   .form-grid {
-    grid-template-columns: 1fr; /* 👈 inputs en columna */
+    grid-template-columns: 1fr;
   }
 
   .actions {
-    flex-direction: column; /* 👈 botones verticales */
+    flex-direction: column;
   }
 
   .btn {
     width: 100%;
   }
+
+  h2 {
+    font-size: 20px;
+  }
 }
 
-@media (max-width: 1200px) {
-  .layout {
-    grid-template-columns: 1fr;
-  }
+/* =========================
+   🔹 MENSAJE DE ERROR
+========================= */
+.error {
+  color: #dc3545;
+  font-size: 14px;
+  margin-top: 10px;
 }

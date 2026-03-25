@@ -13,7 +13,7 @@ export class UsuarioAdminService {
 
   // 🔥 MISMO MÉTODO QUE ESTADISTICAS
   private getHeaders(): HttpHeaders {
-    const uid = localStorage.getItem('adminUid'); // 👈 MISMO NOMBRE
+    const uid = localStorage.getItem('uid'); // 👈 MISMO NOMBRE
 
     if (!uid) {
       throw new Error('No hay admin logueado');
