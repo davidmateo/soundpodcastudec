@@ -19,31 +19,48 @@
     <h3>No hay solicitudes</h3>
     <p>Actualmente no existen solicitudes registradas.</p>
   </div>
+<!-- LISTA DE SOLICITUDES -->
+<div *ngFor="let s of solicitudes" class="solicitud solicitud-card">
 
-  <!-- LISTA DE SOLICITUDES -->
-  <div *ngFor="let s of solicitudes" class="solicitud solicitud-card">
-
-    <div class="solicitud-header">
-      <mat-icon class="icon-user">account_circle</mat-icon>
-      <div>
-        <h3>{{ s.nombre }}</h3>
-        <span class="estado"
-          [ngClass]="{
-            'pendiente': s.estado === 'pendiente',
-            'aprobado': s.estado === 'aprobado',
-            'rechazado': s.estado === 'rechazado'
-          }"
-        >
-          {{ s.estado | uppercase }}
-        </span>
-      </div>
-    </div>
-
-    <div class="solicitud-body">
-      <p><strong>Email:</strong> {{ s.correo }}</p>
-      <p><strong>UID Firebase:</strong> {{ s.uid_firebase }}</p>
-      <p><strong>Nuevo UID solicitado:</strong> {{ s.nuevo_uid }}</p>
+  <div class="solicitud-header">
+    <mat-icon class="icon-user">account_circle</mat-icon>
+    <div>
+      <h3>{{ s.nombre }}</h3>
+      <span class="estado"
+        [ngClass]="{
+          'pendiente': s.estado === 'pendiente',
+          'aprobado': s.estado === 'aprobado',
+          'rechazado': s.estado === 'rechazado'
+        }"
+      >
+        {{ s.estado | uppercase }}
+      </span>
     </div>
   </div>
+
+  <div class="solicitud-body">
+    <p><strong>Email:</strong> {{ s.correo }}</p>
+    <p><strong>UID Firebase:</strong> {{ s.uid_firebase }}</p>
+    <p><strong>Nuevo UID solicitado:</strong> {{ s.nuevo_uid }}</p>
+  </div>
+
+  <!-- 🔥 NUEVO: ACCIONES -->
+  <div class="solicitud-actions" *ngIf="s.estado === 'pendiente'">
+
+    <button 
+      class="btn aprobar"
+      (click)="cambiarEstado(s, 2)">
+      ✔ Aprobar
+    </button>
+
+    <button 
+      class="btn denegar"
+      (click)="cambiarEstado(s, 3)">
+      ✖ Denegar
+    </button>
+
+  </div>
+
+</div>
 
 </div>

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-creador-login',
   standalone: true,
@@ -11,20 +12,28 @@ import { CommonModule } from '@angular/common';
   styleUrl: './creador-login.component.css'
 })
 export class CreadorLoginComponent {
+
   uid: string = '';
-  nombre: string = '';
   email: string = '';
   errorMessage: string = '';
   loading: boolean = false;
 
-  // ✅ URL exacta de tu backend (según el router que mostraste)
   private apiUrl = 'http://localhost:3001/usuarios/login-creador';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {}
 
   onSubmit(): void {
-    if (!this.uid.trim()  || !this.email.trim()) {
-      this.errorMessage = '⚠️ Todos los campos son obligatorios.';
+
+    if (!this.uid?.trim()) {
+      this.errorMessage = '⚠️ El UID es obligatorio.';
+      return;
+    }
+
+    if (!this.email?.trim()) {
+      this.errorMessage = '⚠️ El email es obligatorio.';
       return;
     }
 
@@ -36,36 +45,53 @@ export class CreadorLoginComponent {
       email: this.email.trim(),
     };
 
+    console.log('📤 UID enviado:', creadorData.uid);
+
     this.http.post(this.apiUrl, creadorData).subscribe({
       next: (response: any) => {
+
         this.loading = false;
 
-        // ✅ La respuesta correcta del backend es { message, usuario }
-        if (response?.usuario?.id_rol === 4) {
-          localStorage.setItem('creadorUid', response.usuario.uid);
-          localStorage.setItem('creadorEmail', response.usuario.email);
+        console.log('📥 Respuesta backend:', response);
 
-          // Redirigir al dashboard
+        if (!response?.usuario) {
+          this.errorMessage = '❌ Respuesta inválida del servidor';
+          return;
+        }
+
+        if (response.usuario.id_rol === 4) {
+
+          // 🔥 LIMPIAR TODO (evita conflictos)
+          localStorage.clear();
+
+          // 🔥 GUARDAR BIEN
+          localStorage.setItem('uid', response.usuario.uid);
+          localStorage.setItem('userType', 'creador');
+
+          console.log('✅ UID guardado:', response.usuario.uid);
+
           this.router.navigate(['/creador-dashboard']);
+
         } else {
           this.errorMessage = '🚫 No tienes permisos de creador';
         }
       },
-      error: (error) => {     
+
+      error: (error) => {
+
         this.loading = false;
+
         console.error('❌ Error al iniciar sesión:', error);
 
-        // Mostrar mensajes específicos del backend
         if (error.status === 404) {
-          this.errorMessage =
-            'Usuario no encontrado. No tienes permisos para acceder.';
+          this.errorMessage = 'Usuario no encontrado.';
         } else if (error.status === 403) {
-          this.errorMessage = '🚫 Acceso denegado. Solo creadoes.';
+          this.errorMessage = '🚫 Acceso denegado. Solo creadores.';
         } else {
           this.errorMessage =
-            error.error?.error || 'Error al verificar las credenciales.';
+            error.error?.error || 'Error al verificar credenciales.';
         }
-      },
+      }
     });
   }
 }

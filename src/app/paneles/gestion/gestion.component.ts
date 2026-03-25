@@ -34,4 +34,16 @@ export class GestionComponent implements OnInit {
       }
     });
   }
+  async cambiarEstado(s: any, estado: number) {
+  try {
+    await this.solicitudesService
+      .actualizarSolicitud(s.id, estado)
+      .toPromise();
+
+    this.cargarSolicitudes();
+
+  } catch (error) {
+    console.error('❌ Error:', error);
+  }
+}
 }

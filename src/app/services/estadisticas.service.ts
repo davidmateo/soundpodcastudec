@@ -12,7 +12,7 @@ export class EstadisticasService {
   constructor(private http: HttpClient) {}
 
   async getEstadisticas(): Promise<any> {
-    const uid = localStorage.getItem('adminUid'); // ✅ mismo nombre que usas
+    const uid = localStorage.getItem('uid'); // ✅ mismo nombre que usas
 
     if (!uid) {
       throw new Error('No hay admin logueado');

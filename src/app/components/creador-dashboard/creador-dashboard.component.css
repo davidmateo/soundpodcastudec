@@ -1,69 +1,213 @@
-/* Header del panel admin */
-.admin-header {
-  background-color: #5e17eb;
-  color: white;
-  text-align: center;
-  padding: 30px 20px;
-  border-radius: 0 0 12px 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.admin-header h1 {
-  font-size: 2.2rem;
-  margin-bottom: 10px;
-}
-
-.admin-header p {
-  font-size: 1.2rem;
-  margin: 0;
-}
-
-/* Contenedor de las tarjetas */
-.admin-dashboard {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+/* ====== CONTENEDOR GENERAL ====== */
+.dashboard {
   padding: 30px;
+  min-height: 100vh;
 }
 
-/* Estilos de las tarjetas */
-.admin-card {
-  background-color: white;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+.dashboard h1 {
   text-align: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-bottom: 8px;
+  color: #14723b;
 }
 
-.admin-card h3 {
-  color: #4e5ba1;
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-}
-
-.admin-card p {
-  font-size: 1rem;
+.subtitle {
+  text-align: center;
   color: #555;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
-.admin-card button {
-  background-color: #4e5ba1;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
+/* ====== GRID ====== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
 }
 
-.admin-card button:hover {
-  background-color: #3e4d7e;
+/* ====== CARDS ====== */
+.card {
+  background: #f8f8f8;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
 }
 
-.admin-card:hover {
+.card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* ====== TITULOS ====== */
+.card h2 {
+  margin-bottom: 15px;
+  color: #1a7c43;
+}
+
+/* ====== FORM ====== */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.form-group label {
+  font-size: 13px;
+  margin-bottom: 5px;
+  color: #2d6a4f;
+  font-weight: 600;
+}
+
+/* ====== INPUTS ====== */
+input, textarea {
+  width: 100% - 20px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #cce3d6;
+  outline: none;
+  transition: 0.2s;
+}
+
+input:focus, textarea:focus {
+  border-color: #1a7c43;
+  box-shadow: 0 0 6px rgba(26,124,67,0.3);
+}
+
+/* ====== BOTONES ====== */
+.btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+/* BOTÓN PRINCIPAL */
+.primary {
+  background: #1a7c43;
+  color: white;
+}
+
+.primary:hover {
+  background: #145c32;
+}
+
+/* EDITAR */
+.edit {
+  background: #38b000;
+  color: white;
+}
+
+.edit:hover {
+  background: #2d8a00;
+}
+
+/* ELIMINAR */
+.delete {
+  background: #d62828;
+  color: white;
+}
+
+.delete:hover {
+  background: #a61e1e;
+}
+
+/* CANCELAR */
+.cancel {
+  background: #6c757d;
+  color: white;
+}
+
+/* ====== ITEMS PODCAST ====== */
+.podcast-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+  background: #f7fbf9;
+  padding: 10px;
+  border-radius: 12px;
+  transition: 0.2s;
+}
+
+.podcast-item:hover {
+  background: #eef7f2;
+}
+
+/* ====== IMAGEN ====== */
+.podcast-item img {
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* ====== INFO ====== */
+.info {
+  flex: 1;
+}
+
+.info h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+/* ====== ESTADOS ====== */
+.estado {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.pendiente {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.aprobado {
+  background: #d8f3dc;
+  color: #1b4332;
+}
+
+/* ====== ACCIONES ====== */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* ====== AUDIO ====== */
+audio {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* ====== MODAL ====== */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  width: 350px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* ====== ERROR ====== */
+.error {
+  color: #d62828;
+  font-size: 13px;
+  margin-top: 5px;
 }

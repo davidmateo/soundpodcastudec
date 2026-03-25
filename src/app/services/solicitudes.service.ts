@@ -7,11 +7,20 @@ import { Observable } from 'rxjs';
 })
 export class SolicitudesService {
 
-  private apiUrl = 'http://localhost:3001/solicitudes/all';
+  private apiUrl = 'http://localhost:3001/solicitudes';
 
   constructor(private http: HttpClient) {}
 
+  // 🔹 Obtener todas
   getSolicitudes(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+    return this.http.get<any[]>(`${this.apiUrl}/all`);
+  }
+
+  // 🔹 Aprobar / Denegar
+  actualizarSolicitud(id: number, estado_id: number) {
+    return this.http.put(
+      `${this.apiUrl}/${id}`,
+      { estado_id }
+    );
   }
 }

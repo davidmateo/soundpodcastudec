@@ -1,27 +1,133 @@
-<header class="admin-header">
-  <h1>Panel de Creador</h1>
-  <p>Gestiona tu contenido de SoundPodcastUdec desde aquí.</p>
-</header>
+<div class="dashboard">
 
-<div class="admin-dashboard">
-  <!-- Gestión de contenido -->
-  <div class="admin-card">
-    <h3>Mis podcasts</h3>
-    <p>Lista tus podcast subidos desde aquí</p>
-    <a routerLink="/gestion"><button>Ir a gestión</button></a>
+  <h1>🎙️ Panel del Creador</h1>
+  <p class="subtitle">
+    Gestiona tus podcasts, edita contenido y revisa su estado 
+  </p>
+
+  <div class="grid">
+
+    <!-- ========================= -->
+    <!-- 🔹 CREAR PODCAST -->
+    <!-- ========================= -->
+    <div class="card crear">
+
+      <h2>Subir Podcast</h2>
+
+      <div class="form-group">
+        <label>Título</label>
+        <input [(ngModel)]="nuevoPodcast.titulo" placeholder="Ej: Mi primer podcast">
+      </div>
+
+      <div class="form-group">
+        <label>Descripción</label>
+        <textarea [(ngModel)]="nuevoPodcast.description" placeholder="Describe tu podcast"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>URL del Audio</label>
+        <input [(ngModel)]="nuevoPodcast.url_audio" placeholder="https://...">
+      </div>
+
+      <div class="form-group">
+        <label>URL de la Imagen</label>
+        <input [(ngModel)]="nuevoPodcast.imagen" placeholder="https://...">
+      </div>
+
+      <button 
+        class="btn primary"
+        (click)="crearPodcast()"
+        [disabled]="!nuevoPodcast.titulo || !nuevoPodcast.description || !nuevoPodcast.url_audio || !nuevoPodcast.imagen">
+         Enviar Podcast
+      </button>
+
+      <p class="error" *ngIf="!nuevoPodcast.titulo || !nuevoPodcast.description || !nuevoPodcast.url_audio || !nuevoPodcast.imagen">
+        Todos los campos son obligatorios
+      </p>
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- 🔹 MIS SOLICITUDES -->
+    <!-- ========================= -->
+    <div class="card">
+
+      <h2> Mis Solicitudes 📌</h2>
+
+      <div *ngFor="let p of pendientes" class="podcast-item">
+
+        <img [src]="p.imagen" alt="">
+
+        <div class="info">
+          <h3>{{ p.titulo }}</h3>
+          <span class="estado pendiente">PENDIENTE</span>
+        </div>
+
+        <div class="actions">
+          <button class="btn edit" (click)="editar(p)">Editar</button>
+          <button class="btn delete" (click)="eliminar(p.id_podcast)">Eliminar</button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- 🔹 PUBLICADOS -->
+    <!-- ========================= -->
+    <div class="card">
+
+      <h2> Podcasts Publicados</h2>
+
+      <div *ngFor="let p of aprobados" class="podcast-item">
+
+        <img [src]="p.imagen" alt="">
+
+        <div class="info">
+          <h3>{{ p.titulo }}</h3>
+          <span class="estado aprobado">APROBADO</span>
+        </div>
+
+        <audio controls [src]="p.url_audio"></audio>
+
+      </div>
+
+    </div>
+
   </div>
 
-  <!-- Moderación de cuentas -->
-  <div class="admin-card">
-    <h3>Gestion de Podcast </h3>
-    <p>Revisa todos tus podcast y solictudes </p>
-    <a routerLink="/moderacion"><button>Ir a moderación</button></a>
+  <!-- ========================= -->
+  <!-- 🔹 MODAL EDITAR -->
+  <!-- ========================= -->
+  <div *ngIf="editando" class="modal">
+
+    <div class="modal-content">
+      <h2>Editar Podcast</h2>
+
+      <div class="form-group">
+        <label>Título</label>
+        <input [(ngModel)]="editando.titulo">
+      </div>
+
+      <div class="form-group">
+        <label>Descripción</label>
+        <textarea [(ngModel)]="editando.description"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>URL del Audio</label>
+        <input [(ngModel)]="editando.url_audio">
+      </div>
+
+      <div class="form-group">
+        <label>URL de la Imagen</label>
+        <input [(ngModel)]="editando.imagen">
+      </div>
+
+      <button class="btn primary" (click)="actualizar()">Guardar</button>
+      <button class="btn cancel" (click)="editando = null">Cancelar</button>
+    </div>
+
   </div>
 
-  <!-- Novedades de banner -->
-  <div class="admin-card">
-    <h3>Nueva solicitud podcast</h3>
-    <p>Haz tu solicitud para un nuevo podcast aquí</p>
-    <a routerLink="/banners"><button>Ir a banners</button></a>
-  </div>
 </div>

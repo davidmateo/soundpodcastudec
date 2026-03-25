@@ -1,25 +1,22 @@
 import { Injectable, NgZone } from '@angular/core';
-import {  catchError, Observable, switchMap, throwError, tap } from 'rxjs';
-import { 
-  Auth, 
-  signInWithEmailAndPassword, 
-  createUserWithEmailAndPassword, 
-  signOut, 
-  User, 
-  onAuthStateChanged 
-} from '@angular/fire/auth';
-import { BehaviorSubject, from, firstValueFrom } from 'rxjs';
+import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, User, onAuthStateChanged } from '@angular/fire/auth';
+import { BehaviorSubject, from, firstValueFrom, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { switchMap, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSubject.asObservable();
 
-  private apiUrl = 'http://localhost:3001/usuarios'; // 👈 tu backend local
+  private userTypeSubject = new BehaviorSubject<string | null>(localStorage.getItem('userType'));
+  userType$ = this.userTypeSubject.asObservable();
+
+  private apiUrl = 'http://localhost:3001/usuarios';
 
   constructor(
     private auth: Auth,
@@ -27,107 +24,100 @@ export class AuthService {
     private router: Router,
     private http: HttpClient
   ) {
-    // Mantener estado del usuario logueado en Firebase
     onAuthStateChanged(this.auth, (user) => {
       this.ngZone.run(() => {
         this.currentUserSubject.next(user);
       });
     });
   }
- // 🔹 Registro en Firebase + backend
-register(email: string, password: string, nombre: string, apellido?: string): Observable<any> {
-  console.log("Intentando registrar:", { email, password, nombre, apellido });
 
-  return from(createUserWithEmailAndPassword(this.auth, email, password)).pipe(
-    switchMap((userCredential) => {
-      const uid = userCredential.user.uid;
-
-      console.log("Usuario creado en Firebase:", uid);
-
-      return this.http.post(`${this.apiUrl}/register`, {
-        uid,
-        email,
-        nombre,
-        apellido
-      });
-    })
-  );
-}
-
-  // 🔹 Login con Firebase y sincronización con backend
-  async login(email: string, password: string): Promise<any> {
-    const userCred = await signInWithEmailAndPassword(this.auth, email, password);
-    const token = await userCred.user.getIdToken(true);
-
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-    // ✅ usamos firstValueFrom en lugar de toPromise()
-    return await firstValueFrom(
-      this.http.post(`${this.apiUrl}/login`, {}, { headers })
-    );
-  }
-  /**
-   * 🔹 Login de administrador
-   * Solo permite iniciar sesión si el usuario existe en la BD y tiene rol = 1
-   */
- loginAdmin(uid: string, nombre: string, email: string): Observable<any> {
-  return this.http.post(`${this.apiUrl}/login-admin`, { uid, nombre, email }).pipe(
-    tap((res: any) => {
-      // 🔥 GUARDAMOS EL UID REAL (NO ID)
-      localStorage.setItem('admin_uid', uid);
-    }),
-    catchError((error) => {
-      console.error('❌ Error en loginAdmin:', error);
-      return throwError(() => error);
-    })
-  );
-}
-  /** 
-     * Login de creador
-   Solo permite iniciar sesión si el usuario existe en la BD y tiene rol = 4
-
-   */
-  loginCreador(uid: string,  email: string): Observable<any> {
-    const body = { uid, email };
-
-    return this.http.post(`${this.apiUrl}/login-creador`, body).pipe(
-      catchError((error) => {
-        console.error('❌ Error en loginCreador:', error);
-        return throwError(() => error);
+  // 🔹 REGISTRO
+  register(email: string, password: string, nombre: string, apellido?: string): Observable<any> {
+    return from(createUserWithEmailAndPassword(this.auth, email, password)).pipe(
+      switchMap((userCredential) => {
+        const uid = userCredential.user.uid;
+        return this.http.post(`${this.apiUrl}/register`, { uid, email, nombre, apellido });
       })
     );
   }
-  // 🔹 Obtener perfil desde backend
-  async getPerfil(): Promise<any> {
-    const user = this.auth.currentUser;
-    if (!user) throw new Error('No hay usuario logueado');
 
-    const token = await user.getIdToken();
+  // 🔹 LOGIN USUARIO (Firebase)
+  async login(email: string, password: string): Promise<any> {
+    const userCred = await signInWithEmailAndPassword(this.auth, email, password);
+    const uid = userCred.user.uid;
+    const token = await userCred.user.getIdToken(true);
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    return await firstValueFrom(
-      this.http.get(`${this.apiUrl}/me`, { headers })
-    );
+    const res: any = await firstValueFrom(this.http.post(`${this.apiUrl}/login`, {}, { headers }));
+
+    // 🔥 LIMPIAR TODO
+    localStorage.clear();
+
+    // 🔥 GUARDAR SESIÓN
+    this.setUid(uid);
+    this.setUserType('usuario');
+
+    return res;
   }
 
-  // 🔹 Actualizar perfil en backend
-  async updatePerfil(data: { nombre?: string; apellidos?: string; refresh_token?: string }) {
-    const user = this.auth.currentUser;
-    if (!user) throw new Error('No hay usuario logueado');
-
-    const token = await user.getIdToken();
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-    return await firstValueFrom(
-      this.http.put(`${this.apiUrl}/me`, data, { headers })
-    );
-  }
-
-  // 🔹 Logout (solo Firebase)
-  logout() {
-    return from(this.ngZone.run(() => signOut(this.auth)));
-  }
-  
+  // 🔹 LOGIN ADMIN
+loginAdmin(uid: string, nombre: string, email: string) {
+  return this.http.post(`${this.apiUrl}/login-admin`, { uid, nombre, email }).pipe(
+    tap((res: any) => {
+      if (res?.usuario?.id_rol === 1) {
+        this.setUid(res.usuario.uid);
+        this.setUserType('admin'); // dispara updateUserStatus en Navbar
+      } else {
+        throw new Error('No tienes permisos de administrador');
+      }
+    })
+  );
 }
 
+  // 🔹 LOGIN CREADOR
+  loginCreador(uid: string, email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login-creador`, { uid, email }).pipe(
+      tap(() => {
+        this.setUid(uid);
+        this.setUserType('creador');
+      })
+    );
+  }
 
+  // 🔹 HELPERS
+  setUserType(type: string) {
+    localStorage.setItem('userType', type);
+    this.userTypeSubject.next(type);
+  }
+
+  setUid(uid: string) {
+    localStorage.setItem('uid', uid);
+  }
+
+  getUserType(): string | null {
+    return localStorage.getItem('userType');
+  }
+
+  isAdmin(): boolean {
+    return this.getUserType() === 'admin';
+  }
+
+  isCreador(): boolean {
+    return this.getUserType() === 'creador';
+  }
+
+  isUsuario(): boolean {
+    return this.getUserType() === 'usuario';
+  }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('uid');
+  }
+
+  // 🔹 LOGOUT
+  logout() {
+    localStorage.clear();
+    this.userTypeSubject.next(null);
+    return from(this.ngZone.run(() => signOut(this.auth)));
+  }
+}

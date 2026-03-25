@@ -67,7 +67,7 @@ export class FormPodcastComponent implements OnInit {
 
       // ✅ Redirige después de 2 segundos
       setTimeout(() => {
-        this.router.navigate(['/']); // 🔹 Ahora sí funciona
+        this.router.navigate(['/index']); // 🔹 Ahora sí funciona
       }, 2000);
     } catch (error: any) {
       console.error('❌ Error al enviar solicitud:', error);
