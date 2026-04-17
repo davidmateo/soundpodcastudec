@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { EstadisticasService } from '../../services/estadisticas.service';
 import { NotificacionesService, Notificacion } from '../../services/notificaciones.service';
+import { AdminBackupService } from '../../services/admin-backup.service'; // 🔥 NUEVO
 import { Chart } from 'chart.js/auto';
 
 @Component({
@@ -17,6 +18,7 @@ export class AdminDashboardComponent implements OnInit {
   total = 0;
   nuevos = 0;
   rolesResumen: any[] = [];
+
   private chartRoles: Chart | null = null;
   private chartMeses: Chart | null = null;
 
@@ -24,17 +26,23 @@ export class AdminDashboardComponent implements OnInit {
   notificaciones: Notificacion[] = [];
   dropdownOpen: boolean = false;
 
+  // 🔥 BACKUP
+  selectedFile: File | null = null;
+
   constructor(
     private estadisticasService: EstadisticasService,
-    private notificacionesService: NotificacionesService
+    private notificacionesService: NotificacionesService,
+    private backupService: AdminBackupService // 🔥 NUEVO
   ) {}
 
   async ngOnInit() {
     try {
       // 📊 Estadísticas
       const data = await this.estadisticasService.getEstadisticas();
+
       this.total = data.total;
       this.nuevos = data.nuevos;
+
       this.rolesResumen = data.porRol.map((r: any) => ({
         rol: r.rol,
         cantidad: Math.round(Number(r.cantidad))
@@ -45,7 +53,7 @@ export class AdminDashboardComponent implements OnInit {
         this.crearGraficaUsuariosPorMes(data.porDia);
       }, 150);
 
-      // 🔔 Cargar notificaciones
+      // 🔔 Notificaciones
       this.cargarNotificaciones();
 
     } catch (error) {
@@ -53,34 +61,30 @@ export class AdminDashboardComponent implements OnInit {
     }
   }
 
-  // 🔔 Cargar notificaciones
+  // ===============================
+  // 🔔 NOTIFICACIONES
+  // ===============================
   cargarNotificaciones() {
     this.notificacionesService.obtenerNotificaciones().subscribe({
-      next: data => {
-        console.log('📣 Notificaciones recibidas:', data);
-        this.notificaciones = data;
-      },
-      error: err => console.error('❌ Error cargando notificaciones:', err)
+      next: data => this.notificaciones = data,
+      error: err => console.error('❌ Error notificaciones:', err)
     });
   }
 
-  // 🔔 Toggle dropdown
   toggleDropdown(): void {
     this.dropdownOpen = !this.dropdownOpen;
   }
 
-  // 🔔 Marcar todas como leídas
   marcarNotificacionesLeidas() {
     this.notificacionesService.marcarNotificacionesLeidas().subscribe({
-      next: () => {
-        this.notificaciones = []; // Limpiamos el array local
-        console.log('✅ Todas las notificaciones marcadas como leídas');
-      },
-      error: err => console.error('❌ Error al marcar notificaciones como leídas:', err)
+      next: () => this.notificaciones = [],
+      error: err => console.error('❌ Error:', err)
     });
   }
 
-  // 🥧 Roles
+  // ===============================
+  // 📊 GRÁFICAS
+  // ===============================
   crearGraficaRoles(data: any[]) {
     const labels = data.map(d => d.rol);
     const valores = data.map(d => Math.round(Number(d.cantidad)));
@@ -91,15 +95,18 @@ export class AdminDashboardComponent implements OnInit {
 
     this.chartRoles = new Chart(ctx, {
       type: 'pie',
-      data: { labels, datasets: [{ data: valores, backgroundColor: ['#5e17eb','#ff6384','#36a2eb','#ffce56'] }] },
+      data: {
+        labels,
+        datasets: [{ data: valores }]
+      },
       options: { responsive: true, maintainAspectRatio: false }
     });
   }
 
-  // 📊 Usuarios por mes
   crearGraficaUsuariosPorMes(data: any[]) {
     const hoy = new Date();
     const meses: { [key: string]: number } = {};
+
     for (let i = 5; i >= 0; i--) {
       const fecha = new Date(hoy.getFullYear(), hoy.getMonth() - i, 1);
       const key = `${fecha.getFullYear()}-${String(fecha.getMonth() + 1).padStart(2,'0')}`;
@@ -121,8 +128,56 @@ export class AdminDashboardComponent implements OnInit {
 
     this.chartMeses = new Chart(ctx, {
       type: 'line',
-      data: { labels, datasets: [{ label: 'Usuarios por mes', data: valores, borderColor: '#36a2eb', backgroundColor: 'rgba(54,162,235,0.2)', fill: true, tension: 0.4 }] },
-      options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } }
+      data: {
+        labels,
+        datasets: [{ data: valores }]
+      },
+      options: { responsive: true }
+    });
+  }
+
+  // ===============================
+  // 🔥 BACKUP
+  // ===============================
+
+  descargarBackup() {
+    this.backupService.crearBackup().subscribe({
+      next: (blob: Blob) => {
+
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+
+        a.href = url;
+        a.download = `backup-${new Date().toISOString()}.sql`;
+
+        a.click();
+        window.URL.revokeObjectURL(url);
+
+        console.log('✅ Backup descargado');
+
+      },
+      error: err => console.error('❌ Error backup:', err)
+    });
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
+  restaurarBackup() {
+    if (!this.selectedFile) {
+      alert('⚠️ Selecciona un archivo');
+      return;
+    }
+
+    this.backupService.restaurarBackup(this.selectedFile).subscribe({
+      next: () => {
+        alert('✅ Base de datos restaurada');
+      },
+      error: err => {
+        console.error('❌ Error restore:', err);
+        alert('Error al restaurar');
+      }
     });
   }
 }

@@ -43,8 +43,46 @@
         </div>
       </div>
     </div>
+    
   </header>
+<div class="backup-actions">
 
+  <!-- BACKUP -->
+  <div class="backup-section">
+
+    <div class="backup-row">
+      <div class="backup-text">
+        <h3>Descargar Backup</h3>
+        <p>Genera una copia completa de los datos actuales</p>
+      </div>
+
+      <button (click)="descargarBackup()" class="btn backup-btn">
+        ⬇ Descargar
+      </button>
+    </div>
+
+  </div>
+
+  <!-- RESTORE -->
+  <div class="backup-section">
+
+    <h3>Restaurar Backup</h3>
+    <p>Sube un archivo .sql</p>
+
+    <div class="backup-row">
+      <label class="file-label">
+        <input type="file" (change)="onFileSelected($event)">
+        📁 Archivo
+      </label>
+
+      <button (click)="restaurarBackup()" class="btn restore-btn">
+        ⚠ Restaurar
+      </button>
+    </div>
+
+  </div>
+
+</div>
   <!-- RESUMEN -->
   <div class="resumen-container">
 
