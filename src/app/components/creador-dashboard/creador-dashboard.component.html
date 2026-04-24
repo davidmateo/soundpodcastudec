@@ -1,96 +1,110 @@
 <div class="dashboard">
 
-  <h1>🎙️ Panel del Creador</h1>
-  <p class="subtitle">
-    Gestiona tus podcasts, edita contenido y revisa su estado 
-  </p>
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Panel del Creador</h1>
+    <p>Gestiona y revisa tus podcasts</p>
+  </div>
 
-  <div class="grid">
+  <div class="main-layout">
 
     <!-- ========================= -->
-    <!-- 🔹 CREAR PODCAST -->
+    <!-- 🔹 IZQUIERDA -->
     <!-- ========================= -->
-    <div class="card crear">
+    <div class="left">
 
-      <h2>Subir Podcast</h2>
+      <!-- 🔹 SOLICITUDES -->
+      <div class="card">
+        <h2>Mis solicitudes</h2>
+
+        <div *ngFor="let p of pendientes" class="item">
+
+          <img [src]="p.imagen || 'https://via.placeholder.com/80'" class="thumb">
+
+          <div class="content">
+            <h3>{{ p.titulo }}</h3>
+            <p class="desc">{{ p.description }}</p>
+            <span class="estado pendiente">Pendiente</span>
+          </div>
+
+          <div class="actions">
+            <button class="btn edit" (click)="editar(p)">✏</button>
+            <button class="btn delete" (click)="eliminar(p.id_podcast)">🗑</button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 🔹 PUBLICADOS -->
+      <div class="card publicados">
+
+        <h2>Podcasts publicados</h2>
+
+        <div *ngFor="let p of aprobados" class="podcast-card">
+
+          <img 
+            [src]="p.imagen || 'https://via.placeholder.com/100'" 
+            class="cover"
+          >
+
+          <div class="podcast-content">
+            <h3>{{ p.titulo }}</h3>
+            <p class="desc">{{ p.description }}</p>
+            <span class="estado aprobado">Publicado</span>
+          </div>
+
+          <div class="player">
+            <iframe 
+              [src]="getSafeUrl(p.url_audio)"
+              frameborder="0"
+              allow="autoplay; clipboard-write; encrypted-media"
+              loading="lazy">
+            </iframe>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- 🔹 DERECHA (FORM) -->
+    <!-- ========================= -->
+    <div class="card form-card">
+
+      <h2>Nuevo podcast</h2>
 
       <div class="form-group">
         <label>Título</label>
-        <input [(ngModel)]="nuevoPodcast.titulo" placeholder="Ej: Mi primer podcast">
+        <input [(ngModel)]="nuevoPodcast.titulo">
       </div>
 
       <div class="form-group">
         <label>Descripción</label>
-        <textarea [(ngModel)]="nuevoPodcast.description" placeholder="Describe tu podcast"></textarea>
+        <textarea [(ngModel)]="nuevoPodcast.description"></textarea>
       </div>
 
       <div class="form-group">
-        <label>URL del Audio</label>
-        <input [(ngModel)]="nuevoPodcast.url_audio" placeholder="https://...">
+        <label>Link de Spotify</label>
+        <input [(ngModel)]="nuevoPodcast.url_audio">
       </div>
 
       <div class="form-group">
-        <label>URL de la Imagen</label>
-        <input [(ngModel)]="nuevoPodcast.imagen" placeholder="https://...">
+        <label>Imagen</label>
+        <input [(ngModel)]="nuevoPodcast.imagen">
       </div>
 
       <button 
         class="btn primary"
         (click)="crearPodcast()"
-        [disabled]="!nuevoPodcast.titulo || !nuevoPodcast.description || !nuevoPodcast.url_audio || !nuevoPodcast.imagen">
-         Enviar Podcast
+        [disabled]="!formValido()">
+        Publicar
       </button>
 
-      <p class="error" *ngIf="!nuevoPodcast.titulo || !nuevoPodcast.description || !nuevoPodcast.url_audio || !nuevoPodcast.imagen">
-        Todos los campos son obligatorios
+      <p class="error" *ngIf="!formValido()">
+        Ingresa un link válido de Spotify
       </p>
-
-    </div>
-
-    <!-- ========================= -->
-    <!-- 🔹 MIS SOLICITUDES -->
-    <!-- ========================= -->
-    <div class="card">
-
-      <h2> Mis Solicitudes 📌</h2>
-
-      <div *ngFor="let p of pendientes" class="podcast-item">
-
-        <img [src]="p.imagen" alt="">
-
-        <div class="info">
-          <h3>{{ p.titulo }}</h3>
-          <span class="estado pendiente">PENDIENTE</span>
-        </div>
-
-        <div class="actions">
-          <button class="btn edit" (click)="editar(p)">Editar</button>
-          <button class="btn delete" (click)="eliminar(p.id_podcast)">Eliminar</button>
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- ========================= -->
-    <!-- 🔹 PUBLICADOS -->
-    <!-- ========================= -->
-    <div class="card">
-
-      <h2> Podcasts Publicados</h2>
-
-      <div *ngFor="let p of aprobados" class="podcast-item">
-
-        <img [src]="p.imagen" alt="">
-
-        <div class="info">
-          <h3>{{ p.titulo }}</h3>
-          <span class="estado aprobado">APROBADO</span>
-        </div>
-
-        <audio controls [src]="p.url_audio"></audio>
-
-      </div>
 
     </div>
 
@@ -102,30 +116,61 @@
   <div *ngIf="editando" class="modal">
 
     <div class="modal-content">
-      <h2>Editar Podcast</h2>
 
-      <div class="form-group">
-        <label>Título</label>
-        <input [(ngModel)]="editando.titulo">
+      <!-- HEADER -->
+      <div class="modal-header">
+        <h2>Editar solicitud</h2>
+        <button class="close" (click)="cancelarEdicion()">✕</button>
       </div>
 
-      <div class="form-group">
-        <label>Descripción</label>
-        <textarea [(ngModel)]="editando.description"></textarea>
+      <!-- PREVIEW LIMPIO -->
+      <div class="modal-preview">
+
+        <img 
+          [src]="editando.imagen || 'https://via.placeholder.com/100'" 
+          class="preview-img"
+        >
+
+        <iframe 
+          [src]="getSafeUrl(editando.url_audio)"
+          frameborder="0"
+          loading="lazy">
+        </iframe>
+
       </div>
 
-      <div class="form-group">
-        <label>URL del Audio</label>
-        <input [(ngModel)]="editando.url_audio">
+      <!-- FORM MINIMAL -->
+      <div class="modal-body">
+
+        <div class="form-group">
+          <label>Título</label>
+          <input [(ngModel)]="editando.titulo">
+        </div>
+
+        <div class="form-group">
+          <label>Descripción</label>
+          <textarea [(ngModel)]="editando.description"></textarea>
+        </div>
+
+        <!-- 🔒 SOLO VISUAL (NO EDITABLE) -->
+        <div class="form-group disabled">
+          <label>Link Spotify</label>
+          <input [value]="editando.url_audio" disabled>
+        </div>
+
+        <div class="form-group disabled">
+          <label>Imagen</label>
+          <input [value]="editando.imagen" disabled>
+        </div>
+
       </div>
 
-      <div class="form-group">
-        <label>URL de la Imagen</label>
-        <input [(ngModel)]="editando.imagen">
+      <!-- ACTIONS -->
+      <div class="modal-actions">
+        <button class="btn primary" (click)="actualizar()">Guardar cambios</button>
+        <button class="btn cancel" (click)="cancelarEdicion()">Cancelar</button>
       </div>
 
-      <button class="btn primary" (click)="actualizar()">Guardar</button>
-      <button class="btn cancel" (click)="editando = null">Cancelar</button>
     </div>
 
   </div>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -11,43 +11,58 @@ export class PodcastuService {
 
   constructor(private http: HttpClient) {}
 
-  // ===============================
+  // 🔹 HEADERS ADMIN
+private getAdminHeaders(): HttpHeaders {
+
+  const uid = localStorage.getItem('uid') || '';
+
+  return new HttpHeaders({
+    'x-admin-uid': uid
+  });
+}
+
+
   // 🔹 CREAR PODCAST
-  // ===============================
   crear(data: any): Observable<any> {
     return this.http.post(this.apiUrl, data);
   }
 
-  // ===============================
-  // 🔹 VER PODCASTS APROBADOS (APP)
-  // ===============================
+  // 🔹 APROBADOS
   getAprobados(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
 
-  // ===============================
-  // 🔹 VER TODOS (ADMIN)
-  // ===============================
+  // 🔹 ADMIN
   getAdmin(): Observable<any[]> {
-    const uid = localStorage.getItem('admin_uid');
-
     return this.http.get<any[]>(`${this.apiUrl}/admin`, {
-      headers: {
-        'x-admin-uid': uid || ''
-      }
+      headers: this.getAdminHeaders()
     });
   }
 
-  // ===============================
-  // 🔹 MIS PODCASTS (CREADOR)
-  // ===============================
+  // 🔹 CAMBIAR ESTADO
+cambiarEstado(id: number, estado_id: number): Observable<any> {
+
+  return this.http.put(
+    `${this.apiUrl}/estado/${id}`,
+    { estado_id },
+    {
+      headers: this.getAdminHeaders()
+    }
+  );
+}
+
+  aprobar(id: number): Observable<any> {
+    return this.cambiarEstado(id, 2);
+  }
+
+  rechazar(id: number): Observable<any> {
+    return this.cambiarEstado(id, 3);
+  }
+
   getMis(uid: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/mis-podcasts/${uid}`);
   }
 
-  // ===============================
-  // 🔹 EDITAR PODCAST
-  // ===============================
   actualizar(podcast: any): Observable<any> {
     return this.http.put(
       `${this.apiUrl}/${podcast.id_podcast}`,
@@ -55,33 +70,9 @@ export class PodcastuService {
     );
   }
 
-  // ===============================
-  // 🔹 ELIMINAR PODCAST
-  // ===============================
   eliminar(id: number, uid: string): Observable<any> {
-    return this.http.delete(
-      `${this.apiUrl}/${id}`,
-      {
-        body: { uid }
-      }
-    );
+    return this.http.delete(`${this.apiUrl}/${id}`, {
+      body: { uid }
+    });
   }
-
-  // ===============================
-  // 🔹 APROBAR / DENEGAR (ADMIN)
-  // ===============================
-  cambiarEstado(id: number, estado_id: number): Observable<any> {
-    const uid = localStorage.getItem('admin_uid');
-
-    return this.http.put(
-      `${this.apiUrl}/estado/${id}`,
-      { estado_id },
-      {
-        headers: {
-          'x-admin-uid': uid || ''
-        }
-      }
-    );
-  }
-
 }

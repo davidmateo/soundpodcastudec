@@ -1,167 +1,317 @@
-/* 🌿 CONTENEDOR */
-.solicitudes-wrapper {
-  max-width: 1100px;
-  margin: auto;
-  padding: 20px;
+:root {
+  --bg: #f6f7f9;
+  --card: #ffffff;
+  --text: #111827;
+  --muted: #6b7280;
+  --border: #e5e7eb;
 }
 
-/* 🧾 HEADER */
+/* ===============================
+📦 BASE
+=============================== */
+body {
+  background: var(--bg);
+  font-family: system-ui, sans-serif;
+  color: var(--text);
+}
+
+/* ===============================
+📦 HEADER
+=============================== */
 .admin-header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .admin-header h1 {
+  font-size: 26px;
   color: #1f7a3f;
-  margin-bottom: 5px;
 }
 
 .admin-header p {
-  color: #666;
+  color: var(--muted);
+  font-size: 14px;
 }
 
-/* 🔲 GRID RESPONSIVO */
-.solicitudes-wrapper {
+/* ===============================
+📦 GRID RESPONSIVE
+=============================== */
+.podcast-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 20px;
+  justify-items: start;
 }
 
-/* 🧩 CARD */
+/* ===============================
+🃏 CARD GENERAL
+=============================== */
 .solicitud-card {
-  background: #fff;
-  border-radius: 14px;
-  padding: 18px;
-  border: 1px solid #e5e5e5;
-  transition: 0.2s;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+  transition: 0.2s ease;
 }
 
+.solicitud-card:hover {
+  border-color: #cfcfcf;
+  transform: translateY(-1px);
+}
 
-
-/* 🧑 HEADER DE CARD */
-.solicitud-header {
+/* ===============================
+🔝 HEADER CARD
+=============================== */
+.card-top {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 10px;
-  margin-bottom: 10px;
 }
 
-.icon-user {
-  font-size: 35px;
+/* ===============================
+🏷️ ESTADOS
+=============================== */
+.estado {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.pendiente {
+  background: #fff4d6;
+  color: #a36b00;
+}
+
+.aprobado {
+  background: #e7f7ec;
   color: #1f7a3f;
 }
 
-/* 📊 ESTADO */
-.estado {
-  display: inline-block;
-  margin-top: 5px;
-  font-size: 12px;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-weight: bold;
+.rechazado {
+  background: #fde8e8;
+  color: #b42318;
 }
 
-/* Colores estado */
-.estado.pendiente {
-  background: #fff3cd;
-  color: #856404;
-}
-
-.estado.aprobado {
-  background: #d4edda;
-  color: #155724;
-}
-
-.estado.rechazado {
-  background: #f8d7da;
-  color: #721c24;
-}
-
-/* 📄 BODY */
-.solicitud-body p {
-  margin: 5px 0;
-  font-size: 14px;
-}
-
-/* 🔘 ACCIONES */
-.solicitud-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 15px;
-}
-
-/* BOTONES */
+/* ===============================
+🔘 BOTONES
+=============================== */
 .btn {
-  flex: 1;
-  padding: 8px;
-  border-radius: 8px;
   border: none;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 12px;
   cursor: pointer;
-  font-size: 14px;
   transition: 0.2s;
 }
 
-/* Aprobar */
 .btn.aprobar {
-  background: #41a759;
+  background: #28a745;
   color: white;
 }
 
 .btn.aprobar:hover {
-  background: #218838;
+  background: #1f8f3a;
 }
 
-/* Denegar */
 .btn.denegar {
-  background: #c54955;
+  background: #ff4d4d;
   color: white;
 }
 
 .btn.denegar:hover {
-  background: #c82333;
+  background: #d93636;
 }
 
-/* 📦 CARD VACÍO */
-.empty-card {
-  text-align: center;
-  padding: 30px;
-  grid-column: 1 / -1;
+.acciones {
+  display: flex;
+  gap: 6px;
 }
 
-/* 🔄 LOADER */
-.loading-card {
-  text-align: center;
-  grid-column: 1 / -1;
+/* ===============================
+📄 BODY
+=============================== */
+.card-body {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--muted);
 }
 
-.loader {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #ccc;
-  border-top: 4px solid #35974c;
-  border-radius: 50%;
-  margin: auto;
-  animation: spin 1s linear infinite;
+/* ===============================
+🎴 FLIP CARD
+=============================== */
+.podcast-flip-card {
+  width: 100%;
+  max-width: 300px;
+  height: 350px;
+  perspective: 1000px;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+/* INNER */
+.flip-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.45s ease;
+  transform-style: preserve-3d;
 }
 
-/* 📱 RESPONSIVE EXTRA */
-@media (max-width: 480px) {
+/* CLICK FLIP */
+.podcast-flip-card.flipped .flip-inner {
+  transform: rotateY(180deg);
+}
 
-  .solicitud-actions {
+/* CARAS */
+.flip-front,
+.flip-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  backface-visibility: hidden;
+  background: var(--card);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* FRONT */
+.flip-front {
+  cursor: pointer;
+}
+
+/* BACK */
+.flip-back {
+  transform: rotateY(180deg);
+  padding: 14px;
+}
+
+/* ===============================
+🖼️ IMAGEN
+=============================== */
+.podcast-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+/* ===============================
+🎧 EMBED
+=============================== */
+.podcast-embed {
+  padding: 10px;
+}
+
+.podcast-embed iframe {
+  width: 100%;
+  height: 100px;
+  border-radius: 10px;
+  border: none;
+}
+
+/* ===============================
+🔙 BACK HEADER
+=============================== */
+.back-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-volver {
+  background: none;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--muted);
+}
+
+/* ===============================
+📝 TEXTO
+=============================== */
+.flip-back h3 {
+  font-size: 13px;
+  margin: 4px 0;
+}
+
+.flip-back p {
+  font-size: 11px;
+  margin: 2px 0;
+}
+
+.desc {
+  color: var(--muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.date {
+  font-size: 10px;
+  color: #9ca3af;
+}
+
+/* ===============================
+🔘 ACCIONES
+=============================== */
+.flip-back .acciones {
+  margin-top: auto;
+}
+
+/* ===============================
+🎙️ HISTORIAL PODCAST (NORMAL CARD)
+=============================== */
+.podcast-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.podcast-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.podcast-body {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.podcast-info {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ===============================
+📱 RESPONSIVE
+=============================== */
+@media (max-width: 768px) {
+  .card-top {
     flex-direction: column;
+    align-items: flex-start;
   }
 
-  .btn {
+  .acciones {
     width: 100%;
   }
+}
 
-  .admin-header h1 {
-    font-size: 20px;
+@media (max-width: 480px) {
+  .podcast-flip-card {
+    height: 330px;
+  }
+
+  .podcast-img {
+    height: 130px;
+  }
+
+  .podcast-embed iframe {
+    height: 90px;
   }
 }

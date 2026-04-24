@@ -24,14 +24,53 @@ export class AuthService {
     private router: Router,
     private http: HttpClient
   ) {
+
+    // 🔥 CONTROL TOTAL DE FIREBASE
     onAuthStateChanged(this.auth, (user) => {
       this.ngZone.run(() => {
+
+        const userType = localStorage.getItem('userType');
+
+        // 🚫 NO permitir que Firebase pise admin o creador
+        if (userType === 'admin' || userType === 'creador') {
+          console.log('🛑 Firebase ignorado (admin/creador activo)');
+          return;
+        }
+
         this.currentUserSubject.next(user);
+
+        if (user) {
+          this.setUid(user.uid);
+          this.setUserType('usuario');
+        }
       });
     });
   }
 
+  // ===============================
+  // 🔹 RESTAURAR SESIÓN
+  // ===============================
+restaurarSesion() {
+
+  const uid = localStorage.getItem('uid');
+  const userType = localStorage.getItem('userType');
+
+  if (!uid || !userType) {
+    console.log('⚠️ No hay sesión');
+    return;
+  }
+
+  // 🔥 emitir tipo
+  this.userTypeSubject.next(userType);
+
+  // 🔥 SIEMPRE simular usuario (clave)
+  this.currentUserSubject.next({ uid } as any);
+
+  console.log('🔄 Sesión restaurada:', { uid, userType });
+}
+  // ===============================
   // 🔹 REGISTRO
+  // ===============================
   register(email: string, password: string, nombre: string, apellido?: string): Observable<any> {
     return from(createUserWithEmailAndPassword(this.auth, email, password)).pipe(
       switchMap((userCredential) => {
@@ -41,50 +80,72 @@ export class AuthService {
     );
   }
 
+  // ===============================
   // 🔹 LOGIN USUARIO (Firebase)
+  // ===============================
   async login(email: string, password: string): Promise<any> {
+
     const userCred = await signInWithEmailAndPassword(this.auth, email, password);
+
     const uid = userCred.user.uid;
     const token = await userCred.user.getIdToken(true);
+
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    const res: any = await firstValueFrom(this.http.post(`${this.apiUrl}/login`, {}, { headers }));
+    const res: any = await firstValueFrom(
+      this.http.post(`${this.apiUrl}/login`, {}, { headers })
+    );
 
-    // 🔥 LIMPIAR TODO
     localStorage.clear();
 
-    // 🔥 GUARDAR SESIÓN
     this.setUid(uid);
     this.setUserType('usuario');
 
     return res;
   }
 
+  // ===============================
   // 🔹 LOGIN ADMIN
-loginAdmin(uid: string, nombre: string, email: string) {
-  return this.http.post(`${this.apiUrl}/login-admin`, { uid, nombre, email }).pipe(
-    tap((res: any) => {
-      if (res?.usuario?.id_rol === 1) {
-        this.setUid(res.usuario.uid);
-        this.setUserType('admin'); // dispara updateUserStatus en Navbar
-      } else {
-        throw new Error('No tienes permisos de administrador');
-      }
-    })
-  );
-}
+  // ===============================
+  loginAdmin(uid: string, nombre: string, email: string) {
+    return this.http.post(`${this.apiUrl}/login-admin`, { uid, nombre, email }).pipe(
+      tap(async (res: any) => {
 
+        if (res?.usuario?.id_rol !== 1) {
+          throw new Error('No eres admin');
+        }
+
+        // 🔥 CERRAR FIREBASE
+        await signOut(this.auth);
+
+        localStorage.clear();
+
+        this.setUid(res.usuario.uid || uid);
+        this.setUserType('admin');
+      })
+    );
+  }
+
+  // ===============================
   // 🔹 LOGIN CREADOR
+  // ===============================
   loginCreador(uid: string, email: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/login-creador`, { uid, email }).pipe(
-      tap(() => {
+      tap(async () => {
+
+        await signOut(this.auth);
+
+        localStorage.clear();
+
         this.setUid(uid);
         this.setUserType('creador');
       })
     );
   }
 
+  // ===============================
   // 🔹 HELPERS
+  // ===============================
   setUserType(type: string) {
     localStorage.setItem('userType', type);
     this.userTypeSubject.next(type);
@@ -114,7 +175,9 @@ loginAdmin(uid: string, nombre: string, email: string) {
     return !!localStorage.getItem('uid');
   }
 
+  // ===============================
   // 🔹 LOGOUT
+  // ===============================
   logout() {
     localStorage.clear();
     this.userTypeSubject.next(null);

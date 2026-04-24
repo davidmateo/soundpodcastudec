@@ -83,7 +83,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   // ===============================
-  // 📊 GRÁFICAS
+  // GRÁFICAS
   // ===============================
   crearGraficaRoles(data: any[]) {
     const labels = data.map(d => d.rol);

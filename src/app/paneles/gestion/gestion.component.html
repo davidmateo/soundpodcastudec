@@ -1,66 +1,217 @@
-<!-- ENCABEZADO -->
+<!-- =========================
+🔹 HEADER
+========================= -->
 <header class="admin-header">
-  <h1>Centro de Solicitudes Cambio de Rol</h1>
-  <p>Gestiona y revisa las solicitudes enviadas por los usuarios.</p>
+  <h1>Centro de Solicitudes</h1>
+  <p>Gestiona roles y podcasts del sistema</p>
 </header>
 
-<!-- CONTENEDOR PRINCIPAL -->
-<div class="solicitudes-wrapper">
+<!-- =========================
+🔹 LOADING
+========================= -->
+<div *ngIf="loading" class="loading">
+  <mat-icon>hourglass_empty</mat-icon>
+  <p>Cargando información...</p>
+</div>
 
-  <!-- Estado de carga -->
-  <div *ngIf="loading" class="solicitud loading-card">
-    <div class="loader"></div>
-    <p>Cargando solicitudes...</p>
-  </div>
+<!-- =========================
+🔹 TABS PRINCIPALES
+========================= -->
+<mat-tab-group [(selectedIndex)]="tabIndex">
 
-  <!-- Sin solicitudes -->
-  <div *ngIf="!loading && solicitudes.length === 0" class="solicitud empty-card">
-    <mat-icon>inbox</mat-icon>
-    <h3>No hay solicitudes</h3>
-    <p>Actualmente no existen solicitudes registradas.</p>
-  </div>
-<!-- LISTA DE SOLICITUDES -->
-<div *ngFor="let s of solicitudes" class="solicitud solicitud-card">
+  <!-- ========================= -->
+  <!-- 🔹 ROLES PENDIENTES -->
+  <!-- ========================= -->
+  <mat-tab label="Pendientes ({{ pendientesCount }})">
 
-  <div class="solicitud-header">
-    <mat-icon class="icon-user">account_circle</mat-icon>
-    <div>
-      <h3>{{ s.nombre }}</h3>
-      <span class="estado"
-        [ngClass]="{
-          'pendiente': s.estado === 'pendiente',
-          'aprobado': s.estado === 'aprobado',
-          'rechazado': s.estado === 'rechazado'
-        }"
-      >
-        {{ s.estado | uppercase }}
-      </span>
+    <div *ngFor="let s of solicitudesPendientes" class="solicitud-card">
+
+      <div class="card-top">
+
+        <h3>{{ s.nombre }}</h3>
+
+        <span class="estado pendiente">PENDIENTE</span>
+
+        <div class="acciones">
+          <button class="btn aprobar" (click)="cambiarEstado(s, 2)">
+            Aprobar
+          </button>
+
+          <button class="btn denegar" (click)="cambiarEstado(s, 3)">
+            Rechazar
+          </button>
+        </div>
+
+      </div>
+
+      <div class="card-body">
+        <p><strong>Nombre:</strong> {{ s.nombre }}</p>
+        <p><strong>Email:</strong> {{ s.correo }}</p>
+        <p><strong>UID Firebase:</strong> {{ s.uid_firebase }}</p>
+        <p><strong>UID Nuevo:</strong> {{ s.nuevo_uid }}</p>
+        <p><strong>Fecha solicitud:</strong> {{ s.fecha_solicitud }}</p>
+      </div>
+
     </div>
-  </div>
 
-  <div class="solicitud-body">
-    <p><strong>Email:</strong> {{ s.correo }}</p>
-    <p><strong>UID Firebase:</strong> {{ s.uid_firebase }}</p>
-    <p><strong>Nuevo UID solicitado:</strong> {{ s.nuevo_uid }}</p>
-  </div>
+  </mat-tab>
 
-  <!-- 🔥 NUEVO: ACCIONES -->
-  <div class="solicitud-actions" *ngIf="s.estado === 'pendiente'">
+  <!-- ========================= -->
+  <!-- 🔹 HISTORIAL ROLES -->
+  <!-- ========================= -->
+  <mat-tab label="Historial roles ({{ historialRolesCount }})">
 
-    <button 
-      class="btn aprobar"
-      (click)="cambiarEstado(s, 2)">
-      ✔ Aprobar
-    </button>
+    <div *ngFor="let s of solicitudesHistorial" class="solicitud-card">
 
-    <button 
-      class="btn denegar"
-      (click)="cambiarEstado(s, 3)">
-      ✖ Denegar
-    </button>
+      <div class="card-top">
 
-  </div>
+        <h3>{{ s.nombre }}</h3>
 
-</div>
+        <span class="estado"
+              [ngClass]="{
+                'aprobado': s.estado === 'aprobado',
+                'rechazado': s.estado === 'rechazado'
+              }">
+          {{ s.estado | uppercase }}
+        </span>
 
-</div>
+      </div>
+
+      <div class="card-body">
+        <p><strong>Nombre:</strong> {{ s.nombre }}</p>
+        <p><strong>Email:</strong> {{ s.correo }}</p>
+        <p><strong>UID Firebase:</strong> {{ s.uid_firebase }}</p>
+        <p><strong>UID Nuevo:</strong> {{ s.nuevo_uid }}</p>
+        <p><strong>Fecha solicitud:</strong> {{ s.fecha_solicitud }}</p>
+      </div>
+
+    </div>
+
+  </mat-tab>
+
+  <!-- ========================= -->
+  <!-- 🔹 PODCASTS PENDIENTES -->
+  <!-- ========================= -->
+  <mat-tab label="Podcasts ({{ podcastPendientesCount }})">
+
+    <div class="podcast-container">
+
+      <div *ngFor="let p of podcastsPendientes"
+           class="podcast-flip-card"
+           [class.flipped]="p.flip">
+
+        <div class="flip-inner">
+
+          <!-- FRONT -->
+          <div class="flip-front" (click)="p.flip = true">
+
+            <img 
+              class="podcast-img"
+              [src]="p.imagen || 'https://via.placeholder.com/400'"
+              alt="Podcast imagen"
+            >
+
+            <div class="podcast-embed">
+              <iframe 
+                [src]="getSafeSpotifyUrl(p.url_audio)"
+                loading="lazy">
+              </iframe>
+            </div>
+
+          </div>
+
+          <!-- BACK -->
+          <div class="flip-back" (click)="$event.stopPropagation()">
+
+            <div class="back-header">
+              <button class="btn-volver" (click)="p.flip = false">
+                ← Volver
+              </button>
+
+              <span class="estado pendiente">PENDIENTE</span>
+            </div>
+
+            <h3>{{ p.titulo }}</h3>
+
+            <p><strong>Autor:</strong> {{ p.uid }}</p>
+
+            <p class="desc">{{ p.description }}</p>
+
+            <p class="date">{{ p.fecha_subida }}</p>
+
+            <div class="acciones">
+              <button class="btn aprobar"
+                      (click)="cambiarEstadoPodcast(p.id_podcast, 2)">
+                Aprobar
+              </button>
+
+              <button class="btn denegar"
+                      (click)="cambiarEstadoPodcast(p.id_podcast, 3)">
+                Rechazar
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </mat-tab>
+
+  <!-- ========================= -->
+  <!-- 🔹 HISTORIAL PODCASTS -->
+  <!-- ========================= -->
+  <mat-tab label="Historial podcasts ({{ podcastHistorialCount }})">
+
+    <div class="podcast-container">
+
+      <div *ngFor="let p of podcastsHistorial" class="podcast-card">
+
+        <div class="podcast-header">
+
+          <h3>{{ p.titulo }}</h3>
+
+          <span class="estado"
+                [ngClass]="{
+                  'aprobado': p.estado_id === 2,
+                  'rechazado': p.estado_id === 3
+                }">
+            {{ p.estado_id === 2 ? 'APROBADO' : 'RECHAZADO' }}
+          </span>
+
+        </div>
+
+        <div class="podcast-body">
+
+          <img 
+            class="podcast-img"
+            [src]="p.imagen || 'https://via.placeholder.com/200'"
+            alt="Podcast imagen"
+          >
+
+          <div class="podcast-info">
+            <p><strong>Autor:</strong> {{ p.uid }}</p>
+            <p class="desc">{{ p.description }}</p>
+            <p class="date">{{ p.fecha_subida }}</p>
+          </div>
+
+        </div>
+
+        <div class="podcast-embed">
+          <iframe 
+            [src]="getSafeSpotifyUrl(p.url_audio)"
+            loading="lazy"
+            allow="autoplay; clipboard-write; encrypted-media">
+          </iframe>
+        </div>
+
+      </div>
+
+    </div>
+
+  </mat-tab>
+
+</mat-tab-group>

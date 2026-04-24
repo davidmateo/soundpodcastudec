@@ -1,233 +1,232 @@
 /* =========================
-   📦 CONTENEDOR GENERAL
+   📦 CONTENEDOR GENERAL (MINIMAL)
 ========================= */
 .container {
   max-width: 1200px;
   margin: auto;
-  padding: 20px;
-  box-sizing: border-box;
+  padding: 24px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
 }
 
 h2 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   color: #1f7a3f;
-  font-size: 28px;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
 }
 
 /* =========================
-   🃏 TARJETAS
+   📄 PAGINACIÓN (MINIMAL)
+========================= */
+.paginacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+.paginacion button {
+  padding: 6px 10px;
+  border: 1px solid #e0e0e0;
+  background: #fff;
+  color: #5e17eb;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.paginacion button:hover {
+  background: #f5f5ff;
+}
+
+.paginacion button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* =========================
+   🎯 ICON BUTTONS (EDIT / DELETE)
+========================= */
+.icon-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn mat-icon {
+  font-size: 20px;
+}
+
+/* EDIT */
+.icon-btn.edit mat-icon {
+  color: #36a2eb;
+}
+
+.icon-btn.edit:hover {
+  background: rgba(54, 162, 235, 0.08);
+}
+
+/* DELETE */
+.icon-btn.delete mat-icon {
+  color: #ff4d4d;
+}
+
+.icon-btn.delete:hover {
+  background: rgba(255, 77, 77, 0.08);
+}
+
+/* =========================
+   🃏 CARDS (SUAVES)
 ========================= */
 .card {
-  background: #ffffff;
-  padding: 20px;
-  border-radius: 12px;
-  border: 1px solid #dcdcdc;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  transition: transform 0.2s, box-shadow 0.2s;
+  background: #fff;
+  padding: 18px;
+  border-radius: 10px;
+  border: 1px solid #eee;
+  margin-bottom: 18px;
 }
 
 .card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-color: #ddd;
 }
 
 .card h3 {
-  margin-bottom: 15px;
-  color: #333;
+  margin-bottom: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
 }
 
 /* =========================
-   🔹 FORM RESPONSIVO
+   🧾 FORMULARIOS
 ========================= */
 .form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 10px;
-  margin-bottom: 15px;
 }
 
 input {
-  padding: 10px;
+  padding: 9px 10px;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #e5e5e5;
+  font-size: 14px;
   outline: none;
-  width: 100%;
-  box-sizing: border-box;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: 0.2s;
+  background: #fff;
 }
 
 input:focus {
-  border-color: #28a745;
-  box-shadow: 0 0 5px rgba(40, 167, 69, 0.3);
+  border-color: #5e17eb;
 }
 
 /* =========================
-   🔹 TABLA RESPONSIVA
+   📊 TABLA
 ========================= */
 .table-container {
   width: 100%;
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 600px; /* scroll solo si es necesario */
-}
-
-th, td {
-  padding: 8px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+  min-width: 600px;
+  font-size: 14px;
 }
 
 th {
-  background: #f5f5f5;
-  color: #333;
+  text-align: left;
+  font-weight: 600;
+  color: #494949;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  background: #fafafa;
+}
+
+td {
+  padding: 10px;
+  border-bottom: 1px solid #f1f1f1;
 }
 
 tr:hover {
-  background: #f9f9f9;
+  background: #fafafa;
 }
 
 /* =========================
-   🔹 BOTONES
+   🔘 BOTONES GENERALES
 ========================= */
 .actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
+  flex-direction: row;   /* 👈 CLAVE */
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  flex-wrap: nowrap;     /* 👈 evita que se bajen */
+  white-space: nowrap;   /* 👈 evita salto de línea */
 }
 
 .btn {
   padding: 8px 12px;
-  border: none;
   border-radius: 8px;
+  border: 1px solid transparent;
   cursor: pointer;
-  min-width: 80px;
-  transition: background 0.3s, transform 0.2s;
+  font-size: 14px;
+  transition: 0.2s;
 }
 
-.btn:hover {
-  transform: translateY(-1px);
-}
-
+/* PRIMARY */
 .btn.primary {
   background: #28a745;
   color: white;
 }
 
 .btn.primary:hover {
-  background: #218838;
+  background: #1f8f3a;
 }
 
-.btn.edit {
-  background: #ffc107;
-  color: #212529;
-}
-
-.btn.edit:hover {
-  background: #e0a800;
-}
-
-.btn.delete {
-  background: #dc3545;
-  color: white;
-}
-
-.btn.delete:hover {
-  background: #c82333;
-}
-
+/* CANCEL */
 .btn.cancel {
-  background: #6c757d;
-  color: white;
+  background: transparent;
+  border: 1px solid #ccc;
+  color: #666;
 }
 
 .btn.cancel:hover {
-  background: #5a6268;
+  background: #f5f5f5;
 }
 
 /* =========================
-   🔹 LAYOUT FLEXIBLE
+   📐 LAYOUT
 ========================= */
 .layout {
   display: grid;
-  grid-template-columns: 1fr; /* default stacked */
+  grid-template-columns: 1fr;
   gap: 20px;
 }
 
-/* =========================
-   🔹 PANTALLAS GRANDES (desktop)
-========================= */
 @media (min-width: 1025px) {
   .layout {
-    grid-template-columns: 2fr 1fr; /* Tabla + Crear Usuario */
-    gap: 30px;
-    align-items: start;
-  }
-
-  /* Forzar que el formulario de editar siempre quede abajo del crear usuario */
-  .sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 20px; /* espacio entre Crear y Editar */
-  }
-}
-
-
-/* =========================
-   🔹 TABLET / MEDIUM
-========================= */
-@media (max-width: 1024px) {
-  .layout {
-    grid-template-columns: 1fr; /* todo apilado */
-    gap: 20px;
+    grid-template-columns: 2fr 1fr;
   }
 }
 
 /* =========================
-   📱 MOBILE
-========================= */
-@media (max-width: 768px) {
-  .btn {
-    font-size: 14px;
-    padding: 6px 10px;
-    width: 100%;
-  }
-
-  table {
-    font-size: 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .actions {
-    flex-direction: column;
-  }
-
-  .btn {
-    width: 100%;
-  }
-
-  h2 {
-    font-size: 20px;
-  }
-}
-
-/* =========================
-   🔹 MENSAJE DE ERROR
+   ⚠️ MENSAJES
 ========================= */
 .error {
   color: #dc3545;
-  font-size: 14px;
-  margin-top: 10px;
+  font-size: 13px;
+  margin-top: 8px;
 }
